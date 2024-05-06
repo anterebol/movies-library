@@ -7,16 +7,6 @@
   gap: 80px;
   background: rgb(242, 235, 249);
 
-  &__header {
-    color: rgb(152, 84, 246);
-    align-items: center;
-  }
-  &__title {
-    font-size: 24px;
-    font-weight: 600;
-    letter-spacing: -2%;
-  }
-
   &__list {
     display: flex;
     flex-direction: column;
