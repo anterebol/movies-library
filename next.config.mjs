@@ -16,6 +16,10 @@ const nextConfig = {
         source: '/search_movies/:params',
         destination: `${host}/3/discover/movie?language=en-US&:params`,
       },
+      {
+        source: '/genres',
+        destination: 'https://api.themoviedb.org/3/genre/movie/list?language=en'
+      }
     ];
   }
 };
