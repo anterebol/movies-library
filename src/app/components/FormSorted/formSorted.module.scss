@@ -1,0 +1,20 @@
+.formSort {
+  justify-content: right;
+  align-items: last baseline;
+  padding: 0;
+  margin: 0;
+  gap: 24px 16px;
+
+  &__button {
+    background: none;
+    color: rgb(123, 124, 136);
+    padding: 0;
+    height: 42px;
+    width: 80px;
+    transition: .4s;
+    &:hover {
+      color: rgb(123, 124, 136);
+      background: none;
+    }
+  }
+}

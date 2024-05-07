@@ -1,5 +1,5 @@
 import { Group } from "@mantine/core";
-import Image from 'next/image'
+import Image from 'next/image';
 import logo from '@/assets/logo.svg';
 import classes from './logo.module.scss';
 import { Title } from "../Title/Title";
