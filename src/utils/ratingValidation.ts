@@ -10,7 +10,7 @@ export const getRatingFromError = (ratingFrom: number, ratingTo: number) => {
   } else if (isMoreThanTen(ratingFrom)) {
     return errorMoreThanTen;
   }
-  else if (ratingTo && ratingFrom > ratingTo) {
+  else if (ratingTo && ratingFrom && ratingFrom > ratingTo) {
     return oneRatingMoreThanOther;
   }
   return null;
@@ -21,7 +21,7 @@ export const getRatingToError = (ratingTo: number, ratingFrom: number) => {
   } else if (isMoreThanTen(ratingTo)) {
     return errorMoreThanTen;
   }
-  else if (ratingFrom && ratingTo < ratingFrom) {
+  else if (ratingFrom && ratingTo && ratingTo < ratingFrom) {
     return oneRatingMoreThanOther;
   }
   return null;
