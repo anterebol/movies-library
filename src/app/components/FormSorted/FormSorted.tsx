@@ -10,38 +10,32 @@ import { customizeGenres } from "@/utils/customizeGenres";
 import { CounterInput } from "./CounterInput/CounterInput";
 import { getRatingFromError, getRatingToError } from "@/utils/ratingValidation";
 
-export default function FormSorted(props: {onChange: (g: any) => void, genres: Array<GenreType>}) {
-
+export default function FormSorted(props: {onChange: (apiProps: any) => void, genres: Array<GenreType>}) {
+  const { onChange } = props;
   const genres = useMemo(() => customizeGenres(props.genres), [props.genres]);
 
   const form = useForm({
     mode: 'uncontrolled',
     initialValues: initialFormValues,
     validateInputOnChange: true,
+    onValuesChange: () => {
+      form.validate();
+      form.isValid() && onChange(form.getValues());
+    },
     validate: {
       rating_from: (value, values) => getRatingFromError(Number(value), Number(values.rating_to)),
       rating_to: (value, values) => getRatingToError(Number(value), Number(values.rating_from)),
     },
   });
-
-  const addOne = (type: string) => {
+  const setFormRating = (type: string, operation?: string) => {
     const allFormValues = form.getValues();
-    let currentField = Number(allFormValues[type] || 0);
-    console.log(currentField)
-    currentField = currentField < 10 ? currentField + 1 : currentField;
-    const currentNumber = currentField.toString();
-    type === 'rating_from' ? 
-      form.setFieldValue('rating_from', currentNumber) :
-      form.setFieldValue('rating_to', currentNumber)
-  }
-  const subOne = (type: string) => {
-    const allFormValues = form.getValues();
-    let currentField = Number(allFormValues[type] || 0);
-    currentField = currentField > 0 ? currentField - 1 : 0;
-    const currentNumber = currentField.toString();
-    type === 'rating_from' ? 
-      form.setFieldValue('rating_from', currentNumber) :
-        form.setFieldValue('rating_to', currentNumber)
+    let currentNumber = Number(allFormValues[type] || 0);
+    if (operation === 'add') {
+      currentNumber = currentNumber < 10 ? currentNumber + 1 : currentNumber;
+    } else {
+      currentNumber = currentNumber > 0 ? currentNumber - 1 : 0;
+    }
+    form.setFieldValue(type, currentNumber.toString())
   }
   
   const resetForm = () => {
@@ -69,15 +63,15 @@ export default function FormSorted(props: {onChange: (g: any) => void, genres: A
         inputProps={form.getInputProps('rating_from')} 
         label={"Ratings"} 
         placeholder={"From"}
-        onAddClick={() => { addOne('rating_from') }}
-        onSubClick={() => { subOne('rating_from') }}
+        onAddClick={() => { setFormRating('rating_from', 'add') }}
+        onSubClick={() => { setFormRating('rating_from') }}
       />
       <CounterInput 
         selectKey={form.key('rating_to')}
         inputProps={form.getInputProps('rating_to')} 
         placeholder={"To"} 
-        onAddClick={() => { addOne('rating_to') }}
-        onSubClick={() => { subOne('rating_to') }}
+        onAddClick={() => { setFormRating('rating_to', 'add') }}
+        onSubClick={() => { setFormRating('rating_to') }}
       />
     </Group>
     <Button className={classes.formSort__button} onClick={resetForm} >
@@ -88,7 +82,7 @@ export default function FormSorted(props: {onChange: (g: any) => void, genres: A
       inputProps={form.getInputProps('sort_by')} 
       data={sortProps}
       label="Sort by"
-      defaultValue='popularity.desc'
+      defaultValue={initialFormValues.sort_by}
       placeholder="Choose sort properties"
     />
   </Flex>
