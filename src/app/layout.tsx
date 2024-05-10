@@ -3,6 +3,8 @@ import '@mantine/core/styles.css';
 import { Navbar } from "./components/NavBar/NabBar";
 import { ColorSchemeScript, Container, MantineProvider } from "@mantine/core";
 import { theme } from "./theme/theme";
+import { wrapper } from "@/store/configReducer";
+import Providers from '@/store/Provider';
 
 
 export default function RootLayout({
@@ -24,12 +26,16 @@ export default function RootLayout({
       </head>
       <body>
         <MantineProvider theme={theme}>
+          <Providers>
           <Navbar />
             <main>
               {children}
             </main>
+          </Providers>
         </MantineProvider>
       </body>
     </html>
   );
 }
+
+// export default wrapper.withRedux(RootLayout);
