@@ -14,11 +14,15 @@ const nextConfig = {
     return [
       {
         source: '/search_movies/:params',
-        destination: `${host}/3/discover/movie?language=en-US:params`,
+        destination: `${host}/discover/movie?include_adult=false&include_video=false&language=en-US&:params`,
       },
       {
         source: '/genres',
-        destination: `${host}/3/genre/movie/list?language=en`
+        destination: `${host}/genre/movie/list?language=en`
+      },
+      {
+        source: '/poster_config',
+        destination: `${host}/configuration`
       }
     ];
   }
