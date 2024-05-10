@@ -1,0 +1,66 @@
+@import '../../../../styles/mixins.scss';
+@import '../../../../styles/colors.scss';
+
+.card {
+  &__movie {
+    @include flex(row);
+    gap: 16px;
+    width: 482px;
+    font-size: 16px;
+    border-radius: 12px;
+    position: relative;
+    color: $grey-color;
+    line-height: 19px;
+    height: inherit;
+
+    &__rating__button {
+      position: absolute;
+      right: 24px;
+      right: 24px;
+      z-index: 11;
+      cursor: pointer;
+      gap: 4px;
+      [data-read-only="true"] {
+        cursor: inherit;
+      }
+      &__grade {
+        font-size: 16px;
+        font-weight: 600;
+      }
+    }
+
+    &__info {
+      display: grid;
+      align-items: start;
+    }
+
+    &__title {
+      font-weight: 600;
+      color: $purple-color;
+      line-height: 24px;
+      max-width: 240px;
+      align-self: normal;
+    }
+
+    &__rating {
+      @include flex(row, stretch, center);
+
+      &__grade {
+        font-weight: 600;
+        color: $black-color;
+        height: 20px;
+        margin-left: 6.36px;
+        margin-right: 8px
+      }
+    }
+    &__genres {
+      @include flex(row, stretch, baseline);
+      align-self: flex-end;
+      gap: 8px;
+      &__list {
+        color: $black-color;
+        line-height: 20px;
+      }
+    }
+  }
+}

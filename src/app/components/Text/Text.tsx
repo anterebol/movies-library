@@ -1,0 +1,1 @@
+export const Text = ({ className, text }: { className: string, text: string | number }) => <p className={className}>{text}</p>
