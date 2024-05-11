@@ -1,10 +1,11 @@
+'use client';
 import "./globals.scss";
 import '@mantine/core/styles.css';
 import { Navbar } from "./components/NavBar/NabBar";
-import { ColorSchemeScript, Container, MantineProvider } from "@mantine/core";
+import { ColorSchemeScript, MantineProvider } from "@mantine/core";
 import { theme } from "./theme/theme";
-import { wrapper } from "@/store/configReducer";
 import Providers from '@/store/Provider';
+import { ModalEstimate } from "./components/ModalEstimate/ModalEstimate";
 
 
 export default function RootLayout({
@@ -27,7 +28,8 @@ export default function RootLayout({
       <body>
         <MantineProvider theme={theme}>
           <Providers>
-          <Navbar />
+            <Navbar />
+            <ModalEstimate />
             <main>
               {children}
             </main>

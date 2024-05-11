@@ -25,4 +25,8 @@ a {
 button {
   border: none;
   background: none;
+  outline: none;
+  &:focus {
+    box-shadow: none !important;
+  }
 }
