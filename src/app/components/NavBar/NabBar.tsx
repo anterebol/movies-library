@@ -19,9 +19,9 @@ export function Navbar() {
         {navbar.map(({link, name}) => 
           <li key={link} >
             <Link 
-              href={link} 
+              href={link + `/1`} 
               className={classes.navbar__link} 
-              data-active={pathname === link || undefined} 
+              data-active={pathname.includes(link) || undefined} 
             >
               {name}
             </Link>

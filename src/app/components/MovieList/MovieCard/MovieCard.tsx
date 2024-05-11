@@ -5,10 +5,12 @@ import classes from './movieCard.module.scss';
 import { Title } from "../../Title/Title";
 import { Text } from "../../Text/Text";
 import { getYear } from "@/utils/getYear";
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { GenreProps } from "../MovieList";
+import { useAppDispatch } from "@/hooks/hooks";
+import { openEstimateModal } from "@/store/appReducer";
 
-export const MovieCard = ({ movie, posterSize, genres, user_grade }: { movie: MovieProps, posterSize: string, genres: Array<GenreProps>, user_grade: string | undefined }) => {
+export const MovieCard = ({ movie, posterSize, genres, user_grade }: { movie: MovieProps, posterSize: string, genres: Array<GenreProps>, user_grade: number | undefined }) => {
   const { 
     original_title, 
     poster_path, 
@@ -17,23 +19,26 @@ export const MovieCard = ({ movie, posterSize, genres, user_grade }: { movie: Mo
     vote_count,
     genre_ids
   } = movie;
+
+  const dispatch = useAppDispatch();
+
   const genresList = useMemo(() => 
     genres.filter((genre) => 
       genre_ids.find((genreId) => 
         genre.id === genreId)).map(({name}) => 
           name).join(', '),
   [genre_ids, genres]);
+  
   const releaseYear = useMemo(() => getYear(release_date), [release_date]);
 
   return <Card className={classes.card__movie} padding={24}>
       <Group className={classes.card__movie__rating__button}>
         <Rating 
-          onClick={() => console.log('x')} 
+          onClick={() => dispatch(openEstimateModal({original_title, user_grade}))} 
           color="violet" 
           size={"lg"} 
-          count={1} 
-          defaultValue={user_grade ? 1 : 0} 
-          readOnly
+          count={1}
+          value={user_grade ? 1 : 0}
         />
         {user_grade && <Text className={classes.card__movie__rating__button__grade} text={user_grade}/>}
       </Group>
