@@ -1,5 +1,5 @@
 import api from '@/app/API_URL';
-import page from '@/app/movies/page';
+import page from '@/app/movies/[page]/page';
 import { GENRES_PATH, POSTER_CONFIG_PATH, SEARCH_MOVIES_PATH } from '@/constants/apiPathes';
 import { GET_GENRES, GET_MOVIES, GET_POSTERS_CONFIG } from '@/constants/thunksName';
 import { KeyAsString } from '@/types/KeyAsString';
