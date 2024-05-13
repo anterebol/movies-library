@@ -9,17 +9,30 @@ import { sortProps } from "@/constants/selectSortedProps";
 import { customizeGenres } from "@/utils/customizeGenres";
 import { CounterInput } from "./CounterInput/CounterInput";
 import { getRatingFromError, getRatingToError } from "@/utils/ratingValidation";
+import { useAppDispatch, useAppSelector } from "@/hooks/hooks";
+import { setFormValues } from "@/store/appReducer";
 
 export default function FormSorted(props: {onChange: (apiProps: any) => void, genres: Array<GenreType>}) {
+  const dispatch = useAppDispatch();
+  const { searchFormValues } = useAppSelector((state) => state);
   const { onChange } = props;
   const genres = useMemo(() => customizeGenres(props.genres), [props.genres]);
 
   const form = useForm({
-    mode: 'uncontrolled',
-    initialValues: initialFormValues,
+    mode: 'controlled',
+    initialValues: {...searchFormValues},
     validateInputOnChange: true,
     onValuesChange: () => {
       form.validate();
+      const formValues = form.getValues();
+      const apiProps = {
+        genre: formValues.genre,
+        release_year: formValues.release_year,
+        rating_from: formValues.rating_from,
+        rating_to: formValues.rating_to, 
+        sort_by: formValues.sort_by
+      }
+      dispatch(setFormValues(apiProps));
       form.isValid() && onChange(form.getValues());
     },
     validate: {
@@ -53,7 +66,7 @@ export default function FormSorted(props: {onChange: (apiProps: any) => void, ge
     <CustomSelect 
       selectKey={form.key('release_year') || undefined} 
       inputProps={form.getInputProps('release_year')} 
-      data={[{ value: '', label: '' }]}
+      data={[{ value: '1922', label: '1922' }]}
       label="Release year"
       placeholder="Select release year"
     />
@@ -82,7 +95,7 @@ export default function FormSorted(props: {onChange: (apiProps: any) => void, ge
       inputProps={form.getInputProps('sort_by')} 
       data={sortProps}
       label="Sort by"
-      defaultValue={initialFormValues.sort_by}
+      defaultValue={searchFormValues.sort_by}
       placeholder="Choose sort properties"
     />
   </Flex>

@@ -5,17 +5,16 @@ import classes from './modalEstimate.module.scss';
 import Image from "next/image";
 import close from '@/assets/Close.svg';
 import { Title } from "../Title/Title";
-import { useState } from "react";
 
 export const ModalEstimate = () => {
   const dispatch = useAppDispatch();
   const { isOpenModal, currentEstimateItem } = useAppSelector((state) => state);
-  const {original_title, user_grade} = currentEstimateItem;
+  const { user_grade, original_title } = currentEstimateItem;
 
   const closeModal = () => dispatch(closeEstimateModal());
 
   const setModalGrade = (operation = '') => {
-    const dataGrade = {user_grade: user_grade, original_title: original_title, operation: operation};
+    const dataGrade = {user_grade, movie: currentEstimateItem, operation: operation};
     dispatch(setUserGrade(dataGrade));
   }
 
@@ -45,7 +44,7 @@ export const ModalEstimate = () => {
             <Rating 
               className={classes.modal__rating}
               defaultValue={user_grade} 
-              onChange={(grade) => dispatch(setCurrentEstimage({original_title, user_grade: grade}))}
+              onChange={(grade) => dispatch(setCurrentEstimage({user_grade: grade}))}
               count={10} 
               size={"lg"}  
             />

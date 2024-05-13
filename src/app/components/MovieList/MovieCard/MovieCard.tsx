@@ -1,11 +1,10 @@
 import { MovieProps } from "@/types/movieType"
-import { Box, Card, Flex, Group, List, Rating } from "@mantine/core";
-import { Image } from '@mantine/core';
+import { Box, Card, Flex, Group, Rating, Image } from "@mantine/core";
 import classes from './movieCard.module.scss';
 import { Title } from "../../Title/Title";
 import { Text } from "../../Text/Text";
 import { getYear } from "@/utils/getYear";
-import { useMemo, useState } from "react";
+import { useMemo, } from "react";
 import { GenreProps } from "../MovieList";
 import { useAppDispatch } from "@/hooks/hooks";
 import { openEstimateModal } from "@/store/appReducer";
@@ -21,20 +20,23 @@ export const MovieCard = ({ movie, posterSize, genres, user_grade }: { movie: Mo
   } = movie;
 
   const dispatch = useAppDispatch();
+  const setMovieGrade = (e: {stopPropagation: () => void}) => {
+    e.stopPropagation();
+    dispatch(openEstimateModal({...movie, user_grade}));
+  };
 
   const genresList = useMemo(() => 
     genres.filter((genre) => 
       genre_ids.find((genreId) => 
-        genre.id === genreId)).map(({name}) => 
-          name).join(', '),
+        genre.id === genreId)).map(({name}) => name).join(', '),
   [genre_ids, genres]);
   
   const releaseYear = useMemo(() => getYear(release_date), [release_date]);
 
-  return <Card className={classes.card__movie} padding={24}>
+  return <Card h={218} className={classes.card__movie} padding={24}>
       <Group className={classes.card__movie__rating__button}>
         <Rating 
-          onClick={() => dispatch(openEstimateModal({original_title, user_grade}))} 
+          onClick={(e) => {setMovieGrade(e)}} 
           color="violet" 
           size={"lg"} 
           count={1}

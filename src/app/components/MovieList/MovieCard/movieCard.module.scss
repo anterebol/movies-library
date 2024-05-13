@@ -6,6 +6,7 @@
     @include flex(row);
     gap: 16px;
     width: 482px;
+    height: 218px;
     font-size: 16px;
     border-radius: 12px;
     position: relative;
@@ -35,10 +36,10 @@
     }
 
     &__title {
+      @include text-overflow(240px, 48px, 2);
       font-weight: 600;
       color: $purple-color;
       line-height: 24px;
-      max-width: 240px;
       align-self: normal;
     }
 
@@ -56,10 +57,14 @@
     &__genres {
       @include flex(row, stretch, baseline);
       align-self: flex-end;
+      flex-wrap: nowrap;
+      max-height: 48px;
       gap: 8px;
       &__list {
+        @include text-overflow(100%, 40px, 2);
         color: $black-color;
         line-height: 20px;
+        
       }
     }
   }
