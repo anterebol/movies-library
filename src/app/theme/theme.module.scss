@@ -1,10 +1,21 @@
 .container {
   margin: 0 auto;
   padding: 0;
+  min-height: 100vh;
   padding-top: 40px;
+  padding-bottom: 20px;
+  height: 100%;
+  h2 {
+    font-size: 32px;
+    font-weight: 700;
+    line-height: 140%;
+  }
 }
 .responsiveMainContainer {
   max-width: 980px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
 }
 .responsiveCardContainer {
   max-width: 800px;
