@@ -3,14 +3,10 @@ import classes from './navbar.module.scss';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Logo } from '../Logo/Logo';
-
-const navbar = [
-  { link: '/movies', name: 'Movies'},
-  { link: '/rated_movies', name: 'Rated movies'},
-];
+import { navbar } from '@/constants/navBarLinks';
 
 export function Navbar() {
-  const pathname = usePathname()
+  const pathname = usePathname();
 
   return (
     <nav className={classes.navbar}>
@@ -19,7 +15,7 @@ export function Navbar() {
         {navbar.map(({link, name}) => 
           <li key={link} >
             <Link 
-              href={link + `/1`} 
+              href={`${link}?page=1`} 
               className={classes.navbar__link} 
               data-active={pathname.includes(link) || undefined} 
             >
