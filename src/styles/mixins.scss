@@ -4,3 +4,13 @@
 	justify-content: $justify_content;
 	align-items: $align;
 }
+@mixin text-overflow($width, $height, $lines) {
+	max-width: $width;
+	max-height: $height;
+	-webkit-line-clamp: $lines;
+  -webkit-box-orient: vertical;
+  display: -webkit-box;
+  overflow: hidden;
+  overflow-wrap: break-word;
+  text-overflow: ellipsis;
+}
