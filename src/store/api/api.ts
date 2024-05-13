@@ -1,5 +1,5 @@
 import api from '@/app/API_URL';
-import page from '@/app/movies/[page]/page';
+import page from '@/app/movies/page';
 import { GENRES_PATH, POSTER_CONFIG_PATH, SEARCH_MOVIES_PATH } from '@/constants/apiPathes';
 import { GET_GENRES, GET_MOVIES, GET_POSTERS_CONFIG } from '@/constants/thunksName';
 import { KeyAsString } from '@/types/KeyAsString';
@@ -11,7 +11,7 @@ export const getMovies = createAsyncThunk(
   async (queryProps: {apiProps: KeyAsString, page: string},{ rejectWithValue }) => {
     const { apiProps, page } = queryProps;
     return api.get(getQueryString(SEARCH_MOVIES_PATH, page, apiProps))
-      .then((res) => res.data.results)
+      .then((res) => res.data)
       .catch((rej) => rejectWithValue(rej));
   }
 );
