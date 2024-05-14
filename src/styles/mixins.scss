@@ -4,6 +4,12 @@
 	justify-content: $justify_content;
 	align-items: $align;
 }
+@mixin text($size, $weight: 400, $line-height: 100%, $color: black) {
+	font-size: $size;
+	font-weight: $weight;
+	line-height: $line-height;
+	color: $color;
+}
 @mixin text-overflow($width, $height, $lines) {
 	max-width: $width;
 	max-height: $height;
