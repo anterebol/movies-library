@@ -1,0 +1,13 @@
+@import '../../../styles/mixins.scss';
+.none__poster {
+  @include flex(column, center, center);
+  border: 1px solid rgb(245, 245, 246);
+  gap: 4px;
+  background: rgb(234, 235, 237);
+  &__text {
+    color: rgb(172, 173, 185);
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 16px;
+  }
+}
