@@ -23,7 +23,15 @@ const nextConfig = {
       {
         source: '/poster_config',
         destination: `${host}/configuration`
-      }
+      },
+      {
+        source: '/movie/:id',
+        destination: `${host}/movie/:id?language=en-US`
+      },
+      {
+        source: '/trailer/:id',
+        destination: `${host}/movie/:id/videos?language=en-US`
+      },
     ];
   }
 };
