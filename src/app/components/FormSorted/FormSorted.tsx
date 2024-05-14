@@ -1,39 +1,37 @@
-import { Button, Flex, Group, NumberInput } from "@mantine/core";
+import { Button, Flex, Group } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import { CustomSelect } from "./CustomSelect/CustomSelect";
 import classes from './formSorted.module.scss';
-import { useMemo } from "react";
+import { FormEvent, useMemo } from "react";
 import { GenreType } from "@/types/genreType";
 import initialFormValues from '@/constants/formSortedInitialValues';
 import { sortProps } from "@/constants/selectSortedProps";
 import { customizeGenres } from "@/utils/customizeGenres";
 import { CounterInput } from "./CounterInput/CounterInput";
 import { getRatingFromError, getRatingToError } from "@/utils/ratingValidation";
-import { useAppDispatch, useAppSelector } from "@/hooks/hooks";
-import { setFormValues } from "@/store/appReducer";
+import { useAppSelector } from "@/hooks/hooks";
+import { KeyAsString } from "@/types/KeyAsString";
 
-export default function FormSorted(props: {onChange: (apiProps: any) => void, genres: Array<GenreType>}) {
-  const dispatch = useAppDispatch();
+export default function FormSorted(props: {onChange: (apiProps: KeyAsString, isValid: boolean) => void, genres: Array<GenreType>}) {
   const { searchFormValues } = useAppSelector((state) => state);
   const { onChange } = props;
   const genres = useMemo(() => customizeGenres(props.genres), [props.genres]);
 
   const form = useForm({
-    mode: 'controlled',
+    mode: 'uncontrolled',
     initialValues: {...searchFormValues},
     validateInputOnChange: true,
     onValuesChange: () => {
       form.validate();
       const formValues = form.getValues();
-      const apiProps = {
+      const formState = {
         genre: formValues.genre,
         release_year: formValues.release_year,
         rating_from: formValues.rating_from,
         rating_to: formValues.rating_to, 
         sort_by: formValues.sort_by
       }
-      dispatch(setFormValues(apiProps));
-      form.isValid() && onChange(form.getValues());
+      onChange(formState, form.isValid());
     },
     validate: {
       rating_from: (value, values) => getRatingFromError(Number(value), Number(values.rating_to)),
@@ -51,8 +49,8 @@ export default function FormSorted(props: {onChange: (apiProps: any) => void, ge
     form.setFieldValue(type, currentNumber.toString())
   }
   
-  const resetForm = () => {
-    form.setValues({...initialFormValues})
+  const resetForm = (e: FormEvent<HTMLFormElement>) => {
+    form.onReset(e);
   }
 
   return <Flex className={classes.formSort} wrap={'wrap'}>
@@ -67,6 +65,7 @@ export default function FormSorted(props: {onChange: (apiProps: any) => void, ge
       selectKey={form.key('release_year') || undefined} 
       inputProps={form.getInputProps('release_year')} 
       data={[{ value: '1922', label: '1922' }]}
+      defaultValue=""
       label="Release year"
       placeholder="Select release year"
     />

@@ -11,7 +11,7 @@ export const ModalEstimate = () => {
   const { isOpenModal, currentEstimateItem } = useAppSelector((state) => state);
   const { user_grade, original_title } = currentEstimateItem;
 
-  const closeModal = () => dispatch(closeEstimateModal());
+  const closeModal = () => {dispatch(closeEstimateModal())};
 
   const setModalGrade = (operation = '') => {
     const dataGrade = {user_grade, movie: currentEstimateItem, operation: operation};
@@ -44,21 +44,21 @@ export const ModalEstimate = () => {
             <Rating 
               className={classes.modal__rating}
               defaultValue={user_grade} 
-              onChange={(grade) => dispatch(setCurrentEstimage({user_grade: grade}))}
+              onChange={(grade) => {dispatch(setCurrentEstimage({user_grade: grade}))}}
               count={10} 
               size={"lg"}  
             />
             <Flex direction={'row'} gap={16}>
               <Button 
                 size="md" 
-                onClick={() => setModalGrade('saveGrade')}
+                onClick={() => {setModalGrade('saveGrade')}}
                 classNames={{
                   root: classes.modal__save__button
                 }}>
                 Save
               </Button>
               <Button 
-                onClick={() => setModalGrade('removeGrade')}
+                onClick={() =>{ setModalGrade('removeGrade')}}
                 size="md"
                 classNames={{
                   root: classes.modal__remove__button

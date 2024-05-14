@@ -8,14 +8,11 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import { openPrevPage } from "@/store/appReducer";
 import { MovieList } from "../MovieList/MovieList";
 
-export default function MoviesPageLayout (props: { children: React.ReactNode, link: string}) {
-  const { children, link } = props;
+export default function MoviesPageLayout (props: { children: React.ReactNode, link: string, page: string}) {
+  const { children, link, page } = props;
   const dispatch = useAppDispatch();
-  const { isLoad } = useAppSelector((state) => state);
+  const { isLoad, totalPages } = useAppSelector((state) => state);
   const router = useRouter();
-  const searchParams = useSearchParams()
-  const page = searchParams.get('page') || '1';
-  const { totalPages } = useAppSelector((state) => state);
 
   useEffect(() => {
     dispatch(getGenres());
@@ -26,6 +23,9 @@ export default function MoviesPageLayout (props: { children: React.ReactNode, li
     if (Number(page) > totalPages) {
       router.push(`/${link}?page=${totalPages}`);
       dispatch(openPrevPage(totalPages));
+    } else if (Number(page) < 1) {
+      router.push(`/${link}?page=${1}`);
+      dispatch(openPrevPage(1));
     }
   }, [totalPages, page]);
 
@@ -38,7 +38,7 @@ export default function MoviesPageLayout (props: { children: React.ReactNode, li
         <Flex h={'inherit'} w={'100%'} justify={'center'} align={'center'}>
           <Loader color="grape" />
         </Flex> : 
-        <MovieList link={link} />
+        <MovieList />
       }
       <CustomPagination page={Number(page)} link={link} />
     </Container>

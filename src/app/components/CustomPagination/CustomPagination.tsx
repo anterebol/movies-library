@@ -24,7 +24,7 @@ export const CustomPagination = (props: {page: number, link:string}) => {
     } 
   }, []);
 
-  const pagination = useMemo(() => setPagination(totalPages, currentPage), [totalPages, isNextPage, isPrevPage])
+  const pagination = useMemo(() => setPagination(totalPages, currentPage), [totalPages, isNextPage, isPrevPage, page])
 
   return (
     <Flex gap={8} className={classes.pagination}>
@@ -34,10 +34,10 @@ export const CustomPagination = (props: {page: number, link:string}) => {
             className={classes.pagination__button}
             onClick={() => {
               router.push(`/${link}?page=${prevPage}`);
-              pagination[0] === page &&  dispatch(openPrevPage(prevSlicePage));
+              pagination[0] === page && dispatch(openPrevPage(prevSlicePage));
             }}
             paginationItem={'prev'}
-            disabled={page === 1}      
+            disabled={page < 2}      
         />
         {pagination.map((pageNumber) => 
           <PaginationButton

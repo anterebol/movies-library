@@ -21,7 +21,7 @@ export default function RatedMovies() {
   }, [user_grades, page]);
 
   return (
-    <MoviesPageLayout link={"Rated movies"}>
+    <MoviesPageLayout page={page} link={"rated_movies"}>
       <Title title={"Rated movies"} className={''} tag={"h2"} />
     </MoviesPageLayout>
   )
