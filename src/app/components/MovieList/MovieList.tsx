@@ -17,12 +17,13 @@ export const MovieList = () => {
       {movies.map((movie) => {
         const { id } = movie;
         return (
-        <Link key={id} href={`/movie/${id}`}>
+        <Link key={id} href={`/movies/${id}`}>
           <MovieCard 
             user_grade={user_grades[id]?.user_grade || 0}  
-            genres={genres} 
+            allGenres={genres} 
             posterSize={posterSize} 
             movie={movie} 
+            isFullCard={false}
           />
         </Link>)
       })}
