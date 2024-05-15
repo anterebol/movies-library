@@ -24,7 +24,6 @@ export default function FormSorted(props: {onChange: (apiProps: KeyAsString, isV
     onValuesChange: () => {
       form.validate();
       const formValues = form.getValues();
-      console.log(formValues)
       const formState = {
         genre: formValues.genre,
         release_year: formValues.release_year,
@@ -50,13 +49,9 @@ export default function FormSorted(props: {onChange: (apiProps: KeyAsString, isV
     form.setFieldValue(type, currentNumber.toString())
   }
   
-  const resetForm = (e: FormEvent<HTMLFormElement>) => {
+  const resetForm = (e: any) => {
     form.onReset(e);
-    const formValues = form.getValues();
-    console.log(formValues)
     form.setValues({...initialValues})
-      
-      // onChange(formState, form.isValid());
   }
 
   return <Flex className={classes.formSort} wrap={'wrap'}>
