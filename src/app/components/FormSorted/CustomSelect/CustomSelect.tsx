@@ -2,6 +2,7 @@ import classes from './customSelect.module.scss';
 import { Select } from "@mantine/core";
 import Image from 'next/image';
 import selectDefaultButton from '@/assets/form/default-select.svg';
+import { CustomSelectProps } from '@/types/CustopSelectType';
 
 export const CustomSelect = (props: CustomSelectProps) => {
   const { selectKey, inputProps, data, label, placeholder, defaultValue } = props;
