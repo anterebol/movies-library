@@ -6,6 +6,7 @@ import { ColorSchemeScript, MantineProvider } from "@mantine/core";
 import { theme } from "./theme/theme";
 import Providers from '@/store/Provider';
 import { ModalEstimate } from "./components/ModalEstimate/ModalEstimate";
+import { Suspense } from "react";
 
 
 export default function RootLayout({
@@ -21,11 +22,12 @@ export default function RootLayout({
           name="viewport"
           content="width=device-width, initial-scale=1.0"
         />
-        <title>My awesome app</title>
+        <title>Movies library</title>
 
         <ColorSchemeScript />
       </head>
       <body>
+        <Suspense>
         <MantineProvider theme={theme}>
           <Providers>
             <Navbar />
@@ -35,6 +37,7 @@ export default function RootLayout({
             </main>
           </Providers>
         </MantineProvider>
+        </Suspense>
       </body>
     </html>
   );
