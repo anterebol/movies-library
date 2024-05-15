@@ -3,32 +3,42 @@
 
 .pagination {
   align-self: flex-end;
+
   &__button {
     @include flex(row, center, center);
     width: 32px;
     height: 32px;
     font-size: 16px;
-    border: 1px solid rgb(213, 214, 220);
+    border: 1px solid $grey-line-color;
     border-radius: 4px;
-    color: $black_color;
+    color: $black-color;
     cursor: pointer;
     padding: 0px 8px 0px 8px;
+
     &:hover {
       background: $purple-color;
-      color: white;
+      color: $white-color;
       opacity: .7;
     }
+    
     &:disabled {
-      opacity: .5;
+      border: 1px solid $disabled-grey-color;
       cursor: default;
       &:hover {
-        color: $black_color;
+        opacity: 1;
         background: transparent;
+        img {
+          opacity: .6;
+        }
+      }
+      img {
+        opacity: .6;
       }
     }
+
     &__active {
       background: $purple-color;
-      color: white;
+      color: $white-color;
     }
   }
 }
