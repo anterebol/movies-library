@@ -1,0 +1,38 @@
+@import '../../../styles/mixins.scss';
+@import '../../../styles/colors.scss';
+
+.navbar {
+  @include flex(column);
+  width: 280px;
+  min-height: 100vh;
+  padding: 24px;
+  gap: 80px;
+  background: $white-purple-color;
+
+  &__list {
+    @include flex(column);
+    gap: 16px;
+  }
+  &__link {
+    @include flex(row, flex-start, center);
+    font-size: 16px;
+    line-height: 140%;
+    border-radius: 8px;
+    padding: 10px;
+    width: 100%;
+    color: $black-color;
+    &:hover {
+      background: $purple-light-color;
+      color: $purple-color;
+    }
+    &[data-active] {
+      &,
+      &:hover {
+        font-weight: 700;
+        color: $purple-color;
+        background: $purple-light-color;
+      }
+    }
+  }
+  
+}

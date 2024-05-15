@@ -1,0 +1,1 @@
+export const getPageLink = (link: string, pageNumber: string | number) => `/${link}?page=${pageNumber}` 

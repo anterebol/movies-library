@@ -1,0 +1,29 @@
+@import '../../../styles/colors.scss';
+@import '../../../styles/mixins.scss';
+
+.flex {
+  @include flex(row, stretch, center);
+  align-self: flex-end;
+  flex-wrap: nowrap;
+  max-height: 48px;
+
+  &__title {
+    font-size: 16px;  
+    color: $grey-color;
+    line-height: 19px;
+    font-weight: 400;
+    width: 140px;
+  }
+  
+  &__description {
+    @include text-overflow(100%, 40px, 2);
+    color: $black-color;
+    line-height: 20px;
+    font-weight: 400;
+    font-size: 16px;  
+    line-height: 20px;
+    color: rgb(0, 0, 0);
+    letter-spacing: 0px;
+    
+  }
+}

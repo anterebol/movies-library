@@ -1,4 +1,39 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {};
+const host = process.env.NEXT_PUBLIC_API_URL;
+const nextConfig = {
+  async redirects() {
+    return [
+      {
+        source: '/',
+        destination: '/movies',
+        permanent: false
+      },
+    ]
+  },
+  async rewrites() {
+    return [
+      {
+        source: '/search_movies/:params',
+        destination: `${host}/discover/movie?include_adult=false&include_video=false&language=en-US&:params`,
+      },
+      {
+        source: '/genres',
+        destination: `${host}/genre/movie/list?language=en`
+      },
+      {
+        source: '/poster_config',
+        destination: `${host}/configuration`
+      },
+      {
+        source: '/movie/:id',
+        destination: `${host}/movie/:id?language=en-US`
+      },
+      {
+        source: '/trailer/:id',
+        destination: `${host}/movie/:id/videos?language=en-US`
+      },
+    ];
+  }
+};
 
 export default nextConfig;

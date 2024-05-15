@@ -1,0 +1,1 @@
+export const getYear = (date: string) => date ? new Date(date).getFullYear().toString() : '-/-';

@@ -1,0 +1,44 @@
+@import '../../../styles/mixins.scss';
+@import '../../../styles/colors.scss';
+
+.additional {
+
+  &__info {
+
+    &__title {
+      @include text(20px, 700, 20px, $black-color);
+    }
+
+    &__trailer {
+      width: 500px;
+      height: 281px;
+      iframe {
+        width: 500px;
+        height: 281px;
+        border-radius: 9px;
+      }
+    }
+
+    &__description {
+      @include text(16px, 400, 140%);
+      border-bottom: 1px solid $grey-line-color;
+      border-top: 1px solid $grey-line-color;
+      padding: 20px 0;
+    }
+    &__logo {
+      @include flex(row, stretch, center);
+      height: 40px;
+      width: 40px;
+      border: 0.5px solid $logo-grey-border-color;
+      border-radius: 75%;
+      padding: 0 8px;
+      &__img {
+        width: inherit;
+        height: inherit
+      }
+    }
+    &__logo__text {
+      @include text(16px, 700);
+    }
+  }
+}
