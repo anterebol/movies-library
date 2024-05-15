@@ -1,5 +1,5 @@
 "use client"
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { Title } from "../components/Title/Title";
 import classes from './movies.module.scss';
 import FormSorted from "../components/FormSorted/FormSorted";
@@ -10,7 +10,7 @@ import { useSearchParams } from 'next/navigation';
 import MoviesPageLayout from "../components/MoviesPageLayout/MoviesPageLayout";
 import { setFormValues } from "@/store/appReducer";
 
-export default function Movies() {
+function Movies() {
   const dispatch = useAppDispatch();
   const searchParams = useSearchParams();
   const [isValid, setIsValid] = useState(true);
@@ -43,4 +43,12 @@ export default function Movies() {
       <FormSorted genres={genres} onChange={setForm} />
     </MoviesPageLayout>
   );
+}
+
+export default function Suspence () {
+  return (
+    <Suspense>
+      <Movies />
+    </Suspense>
+  )
 }

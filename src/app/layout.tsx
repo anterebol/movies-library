@@ -32,9 +32,7 @@ export default function RootLayout({
             <Navbar />
             <ModalEstimate />
             <main>
-              <Suspense>
-                {children}
-              </Suspense>
+              {children}
             </main>
           </Providers>
         </MantineProvider>
