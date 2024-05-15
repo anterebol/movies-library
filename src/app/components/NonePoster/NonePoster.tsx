@@ -1,4 +1,4 @@
-import { Flex, Box } from "@mantine/core";
+import { Box } from "@mantine/core";
 import Image from 'next/image';
 import { Text } from "../Text/Text";
 import classes from './nonePoster.module.scss';
@@ -9,7 +9,7 @@ export const NonePoster = ({width, height}: {width: number, height: number}) => 
     <Image 
       width={24}
       height={24} 
-      style={{ margin: '4px 0'}}
+      className={classes.none__poster__image}
       src={nonePoster} 
       alt={`none_poster`} 
     />
