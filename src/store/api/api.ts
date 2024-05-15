@@ -1,5 +1,4 @@
 import api from '@/app/API_URL';
-import page from '@/app/movies/page';
 import { GENRES_PATH, GET_MOVIE_PATH, GET_TRAILER_PATH, POSTER_CONFIG_PATH, SEARCH_MOVIES_PATH } from '@/constants/apiPathes';
 import { GET_GENRES, GET_MOVIE, GET_MOVIES, GET_POSTERS_CONFIG, GET_VIDEO_TRAILER } from '@/constants/thunksName';
 import { KeyAsString } from '@/types/KeyAsString';
@@ -36,7 +35,7 @@ export const getPosterConfig = createAsyncThunk(
 
 export const getMovie = createAsyncThunk(
   GET_MOVIE,
-  async (id,{ rejectWithValue }) => {
+  async (id: string, { rejectWithValue }) => {
     return api.get(`/${GET_MOVIE_PATH}/${id}`)
       .then((res) => res.data)
       .catch((rej) => rejectWithValue(rej));
@@ -45,7 +44,7 @@ export const getMovie = createAsyncThunk(
 
 export const getTrailer = createAsyncThunk(
   GET_VIDEO_TRAILER,
-  async (id,{ rejectWithValue }) => {
+  async (id: string,{ rejectWithValue }) => {
     return api.get(`/${GET_TRAILER_PATH}/${id}`)
       .then((res) => res.data)
       .catch((rej) => rejectWithValue(rej));

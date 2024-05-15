@@ -1,7 +1,7 @@
 import { MovieProps } from '@/types/movieType';
 import { getStorageItem, setStorageItem } from '@/utils/localStorage';
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
-import { getGenres, getMovies, getPosterConfig } from './api/api';
+import { getGenres, getMovie, getMovies, getPosterConfig, getTrailer } from './api/api';
 import initialValues from '@/constants/formSortedInitialValues';
 import { KeyAsString } from '@/types/KeyAsString';
 
@@ -17,6 +17,7 @@ const initialState = {
   isNextPage: true,
   isPrevPage: true,
   currentPage: 1,
+  movie: { trailer: '' },
   searchFormValues: initialValues,
   postersConfig: {images: { poster_sizes: [] }},
 };
