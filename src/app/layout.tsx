@@ -27,20 +27,19 @@ export default function RootLayout({
         <ColorSchemeScript />
       </head>
       <body>
-        <Suspense>
         <MantineProvider theme={theme}>
           <Providers>
             <Navbar />
             <ModalEstimate />
             <main>
-              {children}
+              <Suspense>
+                {children}
+              </Suspense>
             </main>
           </Providers>
         </MantineProvider>
-        </Suspense>
       </body>
     </html>
   );
 }
 
-// export default wrapper.withRedux(RootLayout);
