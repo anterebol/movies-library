@@ -2,17 +2,16 @@ import { Button, Flex, Group } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import { CustomSelect } from "./CustomSelect/CustomSelect";
 import classes from './formSorted.module.scss';
-import { FormEvent, useMemo } from "react";
-import { GenreType } from "@/types/genreType";
+import { useMemo } from "react";
 import { sortProps } from "@/constants/selectSortedProps";
 import { customizeGenres } from "@/utils/customizeGenres";
 import { CounterInput } from "./CounterInput/CounterInput";
 import { getRatingFromError, getRatingToError } from "@/utils/ratingValidation";
 import { useAppSelector } from "@/hooks/hooks";
-import { KeyAsString } from "@/types/KeyAsString";
 import initialValues from "@/constants/formSortedInitialValues";
+import { FormSortedProps } from "@/types/formSortedProps";
 
-export default function FormSorted(props: {onChange: (apiProps: KeyAsString, isValid: boolean) => void, genres: Array<GenreType>}) {
+export default function FormSorted(props: FormSortedProps) {
   const { searchFormValues } = useAppSelector((state) => state);
   const { onChange } = props;
   const genres = useMemo(() => customizeGenres(props.genres), [props.genres]);

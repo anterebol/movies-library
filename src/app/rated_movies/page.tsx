@@ -22,7 +22,7 @@ function RatedMovies() {
 
   return (
     <MoviesPageLayout page={page} link={"rated_movies"}>
-      <Title title={"Rated movies"} className={''} tag={"h2"} />
+      <Title title={"Rated movies"} tag={"h2"} />
     </MoviesPageLayout>
   )
 }

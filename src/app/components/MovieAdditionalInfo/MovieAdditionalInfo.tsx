@@ -1,15 +1,9 @@
-import { Box, Card, Flex, Group, Image } from "@mantine/core";
+import { Box, Card, Flex } from "@mantine/core";
 import { Title } from "../Title/Title";
 import classes from './movieAdditionalInfo.module.scss';
-import { ProductionCompany } from "@/types/movieType";
 import YouTube from "react-youtube";
 import { Text } from "../Text/Text";
-interface MovieAdditionalInfoProps {
-  trailerKey: string, 
-  movieDescription: string, 
-  productionCompanys: Array<ProductionCompany>, 
-  logoSize: string
-}
+import { MovieAdditionalInfoProps } from "@/types/movieAdditionalProps";
 
 export const MovieAdditionalInfo = (props: MovieAdditionalInfoProps) => {
   const {trailerKey, movieDescription, productionCompanys, logoSize} = props;

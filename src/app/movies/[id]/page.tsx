@@ -1,6 +1,7 @@
 'use client'
 import { MovieAdditionalInfo } from "@/app/components/MovieAdditionalInfo/MovieAdditionalInfo";
 import { MovieCard } from "@/app/components/MovieList/MovieCard/MovieCard";
+import { Preloader } from "@/app/components/Preloader/Preloader";
 import { Title } from "@/app/components/Title/Title";
 import { useAppDispatch, useAppSelector } from "@/hooks/hooks";
 import { getMovie, getPosterConfig, getTrailer } from "@/store/api/api";
@@ -42,13 +43,19 @@ export default function MoviePage({ params }: { params: {id: string} }) {
 
   return (
     <Container size={'card-container'}>
-      <Flex direction={'column'} gap={20} h={'inherit'} justify={'center'}>
-        {isLoad ? 
-          <Flex align={'center'} justify={'center'}>
-            <Loader color="violet" />
-          </Flex> : 
+      <Flex 
+        direction={'column'} 
+        gap={20} 
+        h={'inherit'} 
+        justify={'center'}
+      >
+        {isLoad ? <Preloader /> : 
           <>
-            <Title title={movie.original_title} className={''} tag="h2" />
+            <Flex gap={8} align={'center'}>
+              <Title title={'Movies'} tag="h2" />
+              /
+              <Title title={movie.original_title} tag="h2" />
+            </Flex>
             <MovieCard 
               isFullCard={true} 
               movie={movie} 

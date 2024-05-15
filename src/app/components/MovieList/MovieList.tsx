@@ -4,8 +4,6 @@ import { useMemo } from "react";
 import { getPosterSize } from "@/utils/getPosterSize";
 import { useAppSelector } from "@/hooks/hooks";
 import Link from "next/link";
-export interface GenreProps {id: string, name: string};
-export interface UserGradeProps { id: number, user_grade: string };
 const moviesPosterSize = 119;
 
 export const MovieList = () => {

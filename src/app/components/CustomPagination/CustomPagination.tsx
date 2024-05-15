@@ -10,8 +10,9 @@ import { setPagination } from '@/utils/setPagination';
 import leftArrow from '@/assets/pagination/left.svg';
 import rightArrow from '@/assets/pagination/right.svg';
 import { getPageLink } from '@/utils/getPageLink';
+import { CustomPaginationProps } from '@/types/paginationProps';
 
-export const CustomPagination = (props: {page: number, link: string, position: string}) => {
+export const CustomPagination = (props: CustomPaginationProps) => {
   const { link, page, position } = props;
   const dispatch = useAppDispatch();
   const router = useRouter();

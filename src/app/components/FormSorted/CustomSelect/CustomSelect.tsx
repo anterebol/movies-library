@@ -3,16 +3,7 @@ import { Select } from "@mantine/core";
 import Image from 'next/image';
 import selectDefaultButton from '@/assets/form/default-select.svg';
 
-type SelectType = {value: string, label: string};
-
-export const CustomSelect = (props: {
-  selectKey: any,
-  inputProps: any,
-  data: Array<SelectType>,
-  placeholder: string,
-  label: string,
-  defaultValue?: string,
-}) => {
+export const CustomSelect = (props: CustomSelectProps) => {
   const { selectKey, inputProps, data, label, placeholder, defaultValue } = props;
   return <Select
       label={label}

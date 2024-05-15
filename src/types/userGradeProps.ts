@@ -1,0 +1,1 @@
+export interface UserGradeProps { id: number, user_grade: string };

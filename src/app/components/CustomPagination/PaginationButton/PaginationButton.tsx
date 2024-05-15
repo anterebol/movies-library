@@ -1,6 +1,6 @@
-import { ReactNode } from "react";
+import { PaginationButtonProps } from "@/types/paginationProps";
 
-export const PaginationButton = (props: {className: string, disabled?: boolean, onClick: () => void, paginationItem: string | ReactNode }) => {
+export const PaginationButton = (props: PaginationButtonProps) => {
   const {className, disabled, onClick, paginationItem} = props;
   return <button 
     disabled={disabled} 

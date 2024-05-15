@@ -1,11 +1,9 @@
-import { MovieProps } from "@/types/movieType"
 import { Box, Card, Flex, Group, Rating, Image } from "@mantine/core";
 import classes from './movieCard.module.scss';
 import { Title } from "../../Title/Title";
 import { Text } from "../../Text/Text";
 import { getYear } from "@/utils/getYear";
 import { useMemo, } from "react";
-import { GenreProps } from "../MovieList";
 import { useAppDispatch } from "@/hooks/hooks";
 import { openEstimateModal } from "@/store/appReducer";
 import { FlexItem } from "../../FlexItem/FlexItem";
@@ -13,8 +11,11 @@ import { setRunTime } from "@/utils/setRunTime";
 import { setStringDate } from "@/utils/setStringDate";
 import { setMoney } from "@/utils/setMoney";
 import { NonePoster } from "../../NonePoster/NonePoster";
+import { MovieCardProps } from "@/types/movieCardProps";
+import { GenreType } from "@/types/genreType";
 
-export const MovieCard = ({ movie, posterSize, allGenres, user_grade, isFullCard }: { movie: MovieProps, posterSize: string, allGenres: Array<GenreProps>, user_grade?: number, isFullCard: boolean }) => {
+export const MovieCard = (props: MovieCardProps) => {
+  const { movie, posterSize, allGenres, user_grade, isFullCard } = props
   const { 
     original_title, 
     poster_path, 
@@ -39,7 +40,7 @@ export const MovieCard = ({ movie, posterSize, allGenres, user_grade, isFullCard
   const posterSizes = {height: isFullCard ? 352 : 170, width: isFullCard ? 250 : 119}
 
   const genresList = useMemo(() => {
-    let currentGenreList = [] as Array<GenreProps>;
+    let currentGenreList = [] as Array<GenreType>;
     if (genres?.length) {
       currentGenreList = genres;
     } else if (allGenres?.length && genre_ids?.length) {
@@ -89,7 +90,7 @@ export const MovieCard = ({ movie, posterSize, allGenres, user_grade, isFullCard
           defaultValue={1} 
           readOnly
         />
-        <Text className={classes.card__movie__rating__grade} text={`${vote_average}`} />
+        <Text className={classes.card__movie__rating__grade} text={vote_average} />
         <Text className={classes.card__movie__rating__votes} text={`(${vote_count})`} />
       </Box>
       </Flex>
