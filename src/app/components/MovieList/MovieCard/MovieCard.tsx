@@ -39,15 +39,18 @@ export const MovieCard = ({ movie, posterSize, allGenres, user_grade, isFullCard
   const posterSizes = {height: isFullCard ? 352 : 170, width: isFullCard ? 250 : 119}
 
   const genresList = useMemo(() => {
+    let currentGenreList = [] as Array<GenreProps>;
     if (genres?.length) {
-      return genres?.map(({name}) => name).join(', ');
+      currentGenreList = genres;
     } else if (allGenres?.length && genre_ids?.length) {
-      return allGenres.filter((genre) => 
+      currentGenreList = allGenres.filter((genre) => 
         genre_ids?.find((genreId) => 
-          genre.id === genreId)).map(({name}) => name).join(', ')
+          genre.id === genreId));
     }
-    return '-/-';
-  }, [genre_ids, genres]);
+    return currentGenreList?.length ? 
+      currentGenreList.map(({name}) => name).join(', ') : 
+      '-/-';
+  }, [genre_ids, genres, allGenres]);
   
   const releaseYear = useMemo(() => getYear(release_date), [release_date]);
 
