@@ -4,13 +4,13 @@ import { CustomSelect } from "./CustomSelect/CustomSelect";
 import classes from './formSorted.module.scss';
 import { FormEvent, useMemo } from "react";
 import { GenreType } from "@/types/genreType";
-import initialFormValues from '@/constants/formSortedInitialValues';
 import { sortProps } from "@/constants/selectSortedProps";
 import { customizeGenres } from "@/utils/customizeGenres";
 import { CounterInput } from "./CounterInput/CounterInput";
 import { getRatingFromError, getRatingToError } from "@/utils/ratingValidation";
 import { useAppSelector } from "@/hooks/hooks";
 import { KeyAsString } from "@/types/KeyAsString";
+import initialValues from "@/constants/formSortedInitialValues";
 
 export default function FormSorted(props: {onChange: (apiProps: KeyAsString, isValid: boolean) => void, genres: Array<GenreType>}) {
   const { searchFormValues } = useAppSelector((state) => state);
@@ -24,6 +24,7 @@ export default function FormSorted(props: {onChange: (apiProps: KeyAsString, isV
     onValuesChange: () => {
       form.validate();
       const formValues = form.getValues();
+      console.log(formValues)
       const formState = {
         genre: formValues.genre,
         release_year: formValues.release_year,
@@ -51,6 +52,11 @@ export default function FormSorted(props: {onChange: (apiProps: KeyAsString, isV
   
   const resetForm = (e: FormEvent<HTMLFormElement>) => {
     form.onReset(e);
+    const formValues = form.getValues();
+    console.log(formValues)
+    form.setValues({...initialValues})
+      
+      // onChange(formState, form.isValid());
   }
 
   return <Flex className={classes.formSort} wrap={'wrap'}>
@@ -59,13 +65,14 @@ export default function FormSorted(props: {onChange: (apiProps: KeyAsString, isV
       inputProps={form.getInputProps('genre')} 
       data={genres}
       label="Genres"
+      defaultValue={searchFormValues.genre}
       placeholder="Select genre"
     />
     <CustomSelect 
       selectKey={form.key('release_year') || undefined} 
       inputProps={form.getInputProps('release_year')} 
       data={[{ value: '1922', label: '1922' }]}
-      defaultValue=""
+      defaultValue={searchFormValues.release_year}
       label="Release year"
       placeholder="Select release year"
     />
@@ -75,6 +82,7 @@ export default function FormSorted(props: {onChange: (apiProps: KeyAsString, isV
         inputProps={form.getInputProps('rating_from')} 
         label={"Ratings"} 
         placeholder={"From"}
+        defaultValue={searchFormValues.rating_from}
         onAddClick={() => { setFormRating('rating_from', 'add') }}
         onSubClick={() => { setFormRating('rating_from') }}
       />
@@ -82,6 +90,7 @@ export default function FormSorted(props: {onChange: (apiProps: KeyAsString, isV
         selectKey={form.key('rating_to')}
         inputProps={form.getInputProps('rating_to')} 
         placeholder={"To"} 
+        defaultValue={searchFormValues.rating_to}
         onAddClick={() => { setFormRating('rating_to', 'add') }}
         onSubClick={() => { setFormRating('rating_to') }}
       />

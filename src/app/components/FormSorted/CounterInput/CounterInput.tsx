@@ -10,11 +10,13 @@ type CounterPropsType = {
   inputProps: any,
   onAddClick: () => void,
   onSubClick: () => void,
+  defaultValue: string | number,
 }
 export const CounterInput = (props: CounterPropsType) => {
-  const { label, placeholder, selectKey, inputProps, onAddClick, onSubClick } = props;
+  const { label, placeholder, selectKey, inputProps, onAddClick, onSubClick, defaultValue } = props;
   return (
     <NumberInput
+      defaultValue={defaultValue}
       className={classes.counter}
       rightSection={
         <div className={classes.counter__rightSection}>
