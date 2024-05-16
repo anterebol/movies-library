@@ -1,0 +1,33 @@
+@import '../../styles/mixins.scss';
+@import '../../styles/colors.scss';
+
+.search {
+  padding: 0px 12px 0px 12px;
+
+  &__wrapper {
+    @include flex(row, space-between, center);
+    width: 490px;
+    height: 48px;
+  }
+
+  &__input {
+    height: inherit;
+    border-radius: 8px;
+    border: 1px solid $disabled-grey-color;
+  }
+
+  &__button {
+    @include flex(row, center, center);
+    @include text(14px, 600, 140%, $white-color);
+    letter-spacing: 0%;
+    padding: 6px 20px 6px 20px;
+    border-radius: 8px;
+    width: 88px;
+    height: 32px;
+    background: $purple-color;
+    &:hover {
+      background: $purple-color;
+      opacity: .7;
+    }
+  }
+}

@@ -10,11 +10,13 @@ import { getRatingFromError, getRatingToError } from "@/utils/ratingValidation";
 import { useAppSelector } from "@/hooks/hooks";
 import initialValues from "@/constants/formSortedInitialValues";
 import { FormSortedProps } from "@/types/formSortedProps";
+import { getSelectYears } from "@/utils/getSelectYears";
 
 export default function FormSorted(props: FormSortedProps) {
   const { searchFormValues } = useAppSelector((state) => state);
   const { onChange } = props;
   const genres = useMemo(() => customizeGenres(props.genres), [props.genres]);
+  const yearsData = useMemo(() => getSelectYears(), []);
 
   const form = useForm({
     mode: 'uncontrolled',
@@ -37,6 +39,7 @@ export default function FormSorted(props: FormSortedProps) {
       rating_to: (value, values) => getRatingToError(Number(value), Number(values.rating_from)),
     },
   });
+  
   const setFormRating = (type: string, operation?: string) => {
     const allFormValues = form.getValues();
     let currentNumber = Number(allFormValues[type] || 0);
@@ -55,7 +58,7 @@ export default function FormSorted(props: FormSortedProps) {
 
   return <Flex className={classes.formSort} wrap={'wrap'}>
     <CustomSelect 
-      selectKey={form.key('genre') || undefined} 
+      selectKey={form.key('genre')} 
       inputProps={form.getInputProps('genre')} 
       data={genres}
       label="Genres"
@@ -63,9 +66,9 @@ export default function FormSorted(props: FormSortedProps) {
       placeholder="Select genre"
     />
     <CustomSelect 
-      selectKey={form.key('release_year') || undefined} 
+      selectKey={form.key('release_year')} 
       inputProps={form.getInputProps('release_year')} 
-      data={[{ value: '1922', label: '1922' }]}
+      data={yearsData}
       defaultValue={searchFormValues.release_year}
       label="Release year"
       placeholder="Select release year"
@@ -89,11 +92,15 @@ export default function FormSorted(props: FormSortedProps) {
         onSubClick={() => { setFormRating('rating_to') }}
       />
     </Group>
-    <Button className={classes.formSort__button} onClick={resetForm} >
+    <Button 
+      className={classes.formSort__button} 
+      onClick={resetForm} 
+      title="Reset form"
+    >
       Reset filters
     </Button>
     <CustomSelect 
-      selectKey={form.key('sort_by') || undefined} 
+      selectKey={form.key('sort_by')} 
       inputProps={form.getInputProps('sort_by')} 
       data={sortProps}
       label="Sort by"

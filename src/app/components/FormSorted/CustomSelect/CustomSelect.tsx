@@ -14,6 +14,7 @@ export const CustomSelect = (props: CustomSelectProps) => {
       rightSectionWidth={24}
       key={selectKey}
       {...inputProps}
+      maxDropdownHeight={200}
       classNames={{
         root: [classes.select],
         wrapper: classes.select__wrapper,

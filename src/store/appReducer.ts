@@ -18,6 +18,7 @@ const initialState = {
   isPrevPage: true,
   currentPage: 1,
   movie: { trailer: '' },
+  searchTitle: '',
   searchFormValues: initialValues,
   postersConfig: {images: { poster_sizes: [] }},
 };
@@ -64,8 +65,9 @@ const appSlice = createSlice({
       const lastMovieIndex = firstMovieIndex + 4;
       const allMovies = Object.values(state.user_grades) as MovieProps[];
       const filteredMovies = allMovies.filter(({original_title}) => original_title.toUpperCase().includes(searchString.toUpperCase()));
+      state.searchTitle = searchString;
       state.movies = filteredMovies.slice(firstMovieIndex, lastMovieIndex);
-      state.totalPages = Math.ceil(allMovies.length / 4) || 1;
+      state.totalPages = Math.ceil(filteredMovies.length / 4) || 1;
       state.isLoad = false;
     },
     setUserGrade: (state, action) => {

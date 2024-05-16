@@ -16,7 +16,7 @@ import { HideBox } from "../HideBox/HideBox";
 export default function MoviesPageLayout (props: { children: ReactNode, link: string, page: string}) {
   const { children, link, page } = props;
   const dispatch = useAppDispatch();
-  const { isLoad, totalPages, movies } = useAppSelector((state) => state);
+  const { isLoad, totalPages, movies, searchTitle } = useAppSelector((state) => state);
   const router = useRouter();
   const isMoviesPage = link === 'movies';
   const currentEmptyState = isMoviesPage ? <SearchEmptyState /> : <RatedEmptyState />;
@@ -38,13 +38,13 @@ export default function MoviesPageLayout (props: { children: ReactNode, link: st
 
   return (
     <Container size={'main-container'}>
-      <Flex direction={isMoviesPage ? 'column': 'row'}>
+      <Flex direction={isMoviesPage ? 'column': 'row'} justify={isMoviesPage ? 'stretch' : 'space-between'}>
         <HideBox isShow={isMoviesPage}>
           {children}
           {!isLoad && !movies.length && currentEmptyState}
         </HideBox>
         <HideBox isShow={!isMoviesPage}>
-          {isLoad || movies.length ? children : movies.length && currentEmptyState}
+          {(isLoad || movies.length || searchTitle) ? children :  currentEmptyState}
         </HideBox>
       </Flex>
       {isLoad ? <Preloader /> : <MovieList />}

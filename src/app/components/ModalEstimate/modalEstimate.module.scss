@@ -9,7 +9,7 @@
     padding: 16px;
     padding-right: 11px;
     line-height: 140%;
-    border-bottom: 1px solid rgb(234, 235, 237);
+    border-bottom: 1px solid $disabled-grey-color;
     font-size: 16px;
   }
   &__close__button {
@@ -22,9 +22,7 @@
     gap: 16px;
 
     &__title {
-      color: $black-color;
-      font-weight: 700;
-      line-height: 140%;
+      @include text(16px, 700, 140% );
     }
   }
 
@@ -33,25 +31,22 @@
     @include flex(row, space-between);
   }
   &__save__button {
+    @include text(14px, 700, 100%, $white-color);
     border-radius: 8px;
-    background: $purple-color;
     padding: 10px 20px 10px 20px;
-    color: white;
     height: 42px;
     width: 80px;
-    font-size: 14px;
-    font-weight: 700;
+    background: $purple-color;
     &:hover {
       background: $purple-color;
       opacity: .8;
     }
   }
   &__remove__button {
+    @include text(14px, 600, 100%, $purple-color);
     background: none;
     padding: 5px 0px;
-    color: $purple-color;
-    font-size: 14px;
-    font-weight: 600;
+
     &:hover {
       background: none;
       color: $purple-color;
