@@ -4,6 +4,9 @@ import classes from './movieAdditionalInfo.module.scss';
 import YouTube from "react-youtube";
 import { Text } from "../Text/Text";
 import { MovieAdditionalInfoProps } from "@/types/movieAdditionalProps";
+import noneVideo from '@/assets/none-video.svg';
+import Image from "next/image";
+
 
 export const MovieAdditionalInfo = (props: MovieAdditionalInfoProps) => {
   const {trailerKey, movieDescription, productionCompanys, logoSize} = props;
@@ -22,7 +25,13 @@ export const MovieAdditionalInfo = (props: MovieAdditionalInfoProps) => {
             title={'Trailer'} 
             tag="h3" 
           />
-          <YouTube videoId={trailerKey} className={classes.additional__info__trailer} />
+          <Box className={classes.additional__info__trailer}>
+            {trailerKey ? 
+              <YouTube videoId={trailerKey} /> :
+              <Image width={50} height={50} alt="none_video" src={noneVideo} />
+            }
+            {/* <NoneVideo /> */}
+          </Box>
         </Flex>
         <Flex 
           direction={'column'} 

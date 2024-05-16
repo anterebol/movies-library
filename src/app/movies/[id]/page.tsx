@@ -7,7 +7,7 @@ import { useAppDispatch, useAppSelector } from "@/hooks/hooks";
 import { getMovie, getPosterConfig, getTrailer } from "@/store/api/api";
 import { MovieProps } from "@/types/movieType";
 import { getPosterSize } from "@/utils/getPosterSize";
-import { Container, Flex, Loader } from "@mantine/core";
+import { Container, Flex } from "@mantine/core";
 import { useEffect, useMemo, useState } from "react";
 
 const moviesPosterSize = 250;
@@ -28,7 +28,7 @@ export default function MoviePage({ params }: { params: {id: string} }) {
         setMovie(res.payload);
         dispatch(getTrailer(res.payload.id))
           .then((res) => 
-            setTrailerKey(res.payload.results[1].key))
+            setTrailerKey(res.payload?.results[1]?.key))
     }).finally(() => setIsLoad(false));
   }
 
@@ -51,9 +51,9 @@ export default function MoviePage({ params }: { params: {id: string} }) {
       >
         {isLoad ? <Preloader /> : 
           <>
-            <Flex gap={8} align={'center'}>
+            <Flex gap={10} align={'center'}>
               <Title title={'Movies'} tag="h2" />
-              /
+              <p>/</p>
               <Title title={movie.original_title} tag="h2" />
             </Flex>
             <MovieCard 

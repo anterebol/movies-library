@@ -10,8 +10,11 @@
     }
 
     &__trailer {
+      @include flex(row, center, center);
+      background: silver;
       width: 500px;
       height: 281px;
+      border-radius: 9px;
       iframe {
         width: 500px;
         height: 281px;

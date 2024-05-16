@@ -8,21 +8,13 @@
   max-height: 48px;
 
   &__title {
-    font-size: 16px;  
-    color: $grey-color;
-    line-height: 19px;
-    font-weight: 400;
+    @include text(16px, 400, 19px, $grey-color);
     width: 140px;
   }
   
   &__description {
     @include text-overflow(100%, 40px, 2);
-    color: $black-color;
-    line-height: 20px;
-    font-weight: 400;
-    font-size: 16px;  
-    line-height: 20px;
-    color: rgb(0, 0, 0);
+    @include text(16px, 400, 20px, $black-color);
     letter-spacing: 0px;
     
   }

@@ -44,7 +44,7 @@ export default function MoviesPageLayout (props: { children: ReactNode, link: st
           {!isLoad && !movies.length && currentEmptyState}
         </HideBox>
         <HideBox isShow={!isMoviesPage}>
-          {isLoad ? <>{children}</> : !movies.length && currentEmptyState}
+          {isLoad || movies.length ? children : movies.length && currentEmptyState}
         </HideBox>
       </Flex>
       {isLoad ? <Preloader /> : <MovieList />}

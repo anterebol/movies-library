@@ -7,6 +7,7 @@
   min-height: 100vh;
   padding: 24px;
   gap: 80px;
+  box-sizing: content-box;
   background: $white-purple-color;
 
   &__list {
@@ -15,12 +16,10 @@
   }
   &__link {
     @include flex(row, flex-start, center);
-    font-size: 16px;
-    line-height: 140%;
+    @include text(16px, 400, 140%, $black-color);
     border-radius: 8px;
     padding: 10px;
     width: 100%;
-    color: $black-color;
     &:hover {
       background: $purple-light-color;
       color: $purple-color;

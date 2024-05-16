@@ -5,6 +5,7 @@ import { Title } from "../components/Title/Title";
 import { getEstimatedMovies } from "@/store/appReducer";
 import { Suspense, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
+import { TextInput } from "@mantine/core";
 
 function RatedMovies() {
   const dispatch = useAppDispatch();
@@ -23,6 +24,11 @@ function RatedMovies() {
   return (
     <MoviesPageLayout page={page} link={"rated_movies"}>
       <Title title={"Rated movies"} tag={"h2"} />
+      <TextInput
+        leftSectionPointerEvents="none"
+        leftSection={icon}
+        placeholder="Search movie title"
+      />
     </MoviesPageLayout>
   )
 }

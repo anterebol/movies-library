@@ -4,17 +4,20 @@
 * {
   padding: 0;
   margin: 0;
-  box-sizing: border-box;
+  // box-sizing: border-box;
 }
 body {
   display: flex;
   height: 100%;
   font-family: 'Inter', sans-serif;
   font-weight: 400;
+  padding: 0;
+  box-sizing: border-box;
 }
 main {
   width: 100%;
   background: $white-grey-color;
+  font-family: 'Inter', sans-serif;
 }
 ul {
   list-style: none;

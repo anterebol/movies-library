@@ -4,12 +4,10 @@
 .card {
   &__movie {
     @include flex(row);
+    @include text(16px, 400, 19px, $grey-color);
     gap: 16px;
-    font-size: 16px;
     border-radius: 12px;
     position: relative;
-    color: $grey-color;
-    line-height: 19px;
     height: inherit;
 
     &__rating__button {
@@ -35,9 +33,7 @@
 
     &__title {
       @include text-overflow(85%, 48px, 2);
-      font-weight: 600;
-      color: $purple-color;
-      line-height: 24px;
+      @include text(inherit, 600, 24px, $purple-color);
       align-self: normal;
     }
 
@@ -53,9 +49,7 @@
       }
     }
     &__description {
-      font-size: 16px;
-      line-height: 20px;
-      color: rgb(0, 0, 0);
+      @include text(16px, inherit, 20px, $black-color);
     }
   }
 }

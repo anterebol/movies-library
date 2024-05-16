@@ -6,7 +6,6 @@ import { ColorSchemeScript, MantineProvider } from "@mantine/core";
 import { theme } from "./theme/theme";
 import Providers from '@/store/Provider';
 import { ModalEstimate } from "./components/ModalEstimate/ModalEstimate";
-import { Suspense } from "react";
 
 
 export default function RootLayout({
@@ -22,6 +21,7 @@ export default function RootLayout({
           name="viewport"
           content="width=device-width, initial-scale=1.0"
         />
+        <link rel="icon" type="image/x-icon" href="./public/favicon.png"></link>
         <title>Movies library</title>
 
         <ColorSchemeScript />

@@ -1,18 +1,21 @@
+@import '../../../../styles/colors.scss';
+@import '../../../../styles/mixins.scss';
+
 .select {
+  @include flex(column);
   gap: 8px;
-  display: flex;
-  flex-direction: column;
+
   &__wrapper {
     width: 284px;
     [data-position="right"] {
       margin: 0px 10px;
-      display: flex;
-      align-items: center;
+      @include flex(row, stretch, center);
     }
   }
+
   &__input {
     height: 42px;
-    border: 1px solid rgb(213, 214, 220);
+    border: 1px solid $grey-line-color;
     border-radius: 8px;
     font-size: 14px;
     padding: 8px 12px 8px 12px;
@@ -23,10 +26,9 @@
       font-weight: 400;
     }
   }
+  
   &__label {
-    font-size: 16px;
-    font-weight: 700;
-    line-height: 140%;
+    @include text(16px, 700, 140%);
     letter-spacing: 0%;
   }
 }
