@@ -12,6 +12,7 @@ import { RatedEmptyState } from "../EmptyState/RatedEmptyState/RatedEmptyState";
 import { SearchEmptyState } from "../EmptyState/SearchEmptyState/SearchEmptyState";
 import { Preloader } from "../Preloader/Preloader";
 import { HideBox } from "../HideBox/HideBox";
+import { GeneralLayout } from "../GeneralLayout/GeneralLayout";
 
 export default function MoviesPageLayout (props: { children: ReactNode, link: string, page: string}) {
   const { children, link, page } = props;
@@ -37,24 +38,28 @@ export default function MoviesPageLayout (props: { children: ReactNode, link: st
   }, [totalPages, page]);
 
   return (
-    <Container size={'main-container'}>
-      <Flex direction={isMoviesPage ? 'column': 'row'} justify={isMoviesPage ? 'stretch' : 'space-between'}>
-        <HideBox isShow={isMoviesPage}>
-          {children}
-          {!isLoad && !movies.length && currentEmptyState}
+    <GeneralLayout>
+      <Container size={'main-container'}>
+        <Flex 
+          direction={isMoviesPage ? 'column': 'row'} 
+          justify={isMoviesPage ? 'stretch' : 'space-between'}>
+          <HideBox isShow={isMoviesPage}>
+            {children}
+            {!isLoad && !movies.length && currentEmptyState}
+          </HideBox>
+          <HideBox isShow={!isMoviesPage}>
+            {(isLoad || movies.length || searchTitle) ? children :  currentEmptyState}
+          </HideBox>
+        </Flex>
+        {isLoad ? <Preloader /> : <MovieList />}
+        <HideBox isShow={(isLoad || !!movies.length)} >
+          <CustomPagination
+            page={Number(page)} 
+            link={link} 
+            position={isMoviesPage ? 'flex-end' : 'center'} 
+          />
         </HideBox>
-        <HideBox isShow={!isMoviesPage}>
-          {(isLoad || movies.length || searchTitle) ? children :  currentEmptyState}
-        </HideBox>
-      </Flex>
-      {isLoad ? <Preloader /> : <MovieList />}
-      <HideBox isShow={(isLoad || !!movies.length)} >
-        <CustomPagination
-          page={Number(page)} 
-          link={link} 
-          position={isMoviesPage ? 'flex-end' : 'center'} 
-        />
-      </HideBox>
-    </Container>
+      </Container>
+    </GeneralLayout>
   );
 }

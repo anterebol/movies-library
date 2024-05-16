@@ -29,8 +29,6 @@ export default function RootLayout({
       <body>
         <MantineProvider theme={theme}>
           <Providers>
-            <Navbar />
-            <ModalEstimate />
             <main>
               {children}
             </main>

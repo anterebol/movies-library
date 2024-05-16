@@ -1,4 +1,5 @@
 'use client'
+import { GeneralLayout } from "@/app/components/GeneralLayout/GeneralLayout";
 import { MovieAdditionalInfo } from "@/app/components/MovieAdditionalInfo/MovieAdditionalInfo";
 import { MovieCard } from "@/app/components/MovieList/MovieCard/MovieCard";
 import { Preloader } from "@/app/components/Preloader/Preloader";
@@ -42,36 +43,38 @@ export default function MoviePage({ params }: { params: {id: string} }) {
   const logoSize = useMemo(() => getPosterSize(postersConfig.images.poster_sizes, logoWidth), [postersConfig])
 
   return (
-    <Container size={'card-container'}>
-      <Flex 
-        direction={'column'} 
-        gap={20} 
-        h={'inherit'} 
-        justify={'center'}
-      >
-        {isLoad ? <Preloader /> : 
-          <>
-            <Flex gap={10} align={'center'}>
-              <Title title={'Movies'} tag="h2" />
-              <p>/</p>
-              <Title title={movie.original_title} tag="h2" />
-            </Flex>
-            <MovieCard 
-              isFullCard={true} 
-              movie={movie} 
-              posterSize={posterSize} 
-              allGenres={[]} 
-              user_grade={user_grades[id]?.user_grade || 0} 
-            />
-            <MovieAdditionalInfo 
-              trailerKey={trailerKey} 
-              movieDescription={movie.overview} 
-              productionCompanys={movie.production_companies || []} 
-              logoSize={logoSize}
-            />
-          </>
-        }
-      </Flex>
-    </Container>
+    <GeneralLayout>
+      <Container size={'card-container'}>
+        <Flex 
+          direction={'column'} 
+          gap={20} 
+          h={'inherit'} 
+          justify={'center'}
+        >
+          {isLoad ? <Preloader /> : 
+            <>
+              <Flex gap={10} align={'center'}>
+                <Title title={'Movies'} tag="h2" />
+                <p>/</p>
+                <Title title={movie.original_title} tag="h2" />
+              </Flex>
+              <MovieCard 
+                isFullCard={true} 
+                movie={movie} 
+                posterSize={posterSize} 
+                allGenres={[]} 
+                user_grade={user_grades[id]?.user_grade || 0} 
+              />
+              <MovieAdditionalInfo 
+                trailerKey={trailerKey} 
+                movieDescription={movie.overview} 
+                productionCompanys={movie.production_companies || []} 
+                logoSize={logoSize}
+              />
+            </>
+          }
+        </Flex>
+      </Container>
+    </GeneralLayout>
   )
 }

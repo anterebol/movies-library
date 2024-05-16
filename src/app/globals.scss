@@ -18,6 +18,8 @@ main {
   width: 100%;
   background: $white-grey-color;
   font-family: 'Inter', sans-serif;
+  position: relative;
+  display: flex;
 }
 ul {
   list-style: none;
