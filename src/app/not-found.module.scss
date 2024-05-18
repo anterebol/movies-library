@@ -36,21 +36,8 @@
   }
 
   &__button {
-    @include flex(row, center, center);
     width: 103px;
     height: 40px;
     padding: 10px 20px 10px 20px;
-    background: $purple-color;
-    border-radius: 8px;
-    @media (max-width: 800px) {
-      @include text(14px, 400, 16px, $white-color);
-      width: 80px;
-    }
-    &:hover {
-      background: $light-purple-color;
-    }
-    &:active {
-      background: $dark-purple-color;
-    }
   }
 }
