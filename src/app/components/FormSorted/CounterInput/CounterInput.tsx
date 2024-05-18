@@ -3,19 +3,25 @@ import addIcon from '@/assets/form/add-clicker.svg';
 import subtractIcon from '@/assets/form/subtract-clicker.svg';
 import { NumberInput } from '@mantine/core';
 import classes from './counterInput.module.scss';
-type CounterPropsType = {
-  label?: string, 
-  placeholder: string, 
-  selectKey: any,
-  inputProps: any,
-  onAddClick: () => void,
-  onSubClick: () => void,
-  defaultValue: string | number,
-}
+import { useFocusWithin } from '@mantine/hooks';
+import { CounterPropsType } from '@/types/counterPropsType';
+
 export const CounterInput = (props: CounterPropsType) => {
   const { label, placeholder, selectKey, inputProps, onAddClick, onSubClick, defaultValue } = props;
+  const { ref, focused } = useFocusWithin();
+  const classesCounter = {
+    error: classes.counter__error,
+    wrapper: classes.counter__wrapper,
+    input: [
+      classes.counter__input, 
+      focused ? classes.counter__input__focused : ''
+    ].join(' '),
+    label: classes.counter__label,
+  };
+
   return (
     <NumberInput
+      ref={ref}
       defaultValue={defaultValue}
       className={classes.counter}
       rightSection={
@@ -38,12 +44,7 @@ export const CounterInput = (props: CounterPropsType) => {
       {...inputProps}
       label={label}
       placeholder={placeholder}
-      classNames={{
-        error: classes.counter__error,
-        wrapper: classes.counter__wrapper,
-        input: classes.counter__input,
-        label: classes.counter__label,
-      }}
+      classNames={classesCounter}
     />
   )
 }

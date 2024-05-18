@@ -7,10 +7,10 @@
   position: relative;
   
   &__wrapper {
-    width: 138px;
-    border: 1px solid $grey-line-color;
+    width: 137px;
+    box-sizing: border-box;
     border-radius: 8px;
-    
+
     [data-position="right"] {
       right: 6px;
     }
@@ -20,6 +20,11 @@
     border-radius: 8px;
     height: 42px;
     padding: 8px 12px 8px 12px;
+    border: 1px solid $grey-line-color;
+
+    &__focused {
+      border: 1px solid $purple-color;
+    }
 
     &::placeholder {
       font-size: 14px;
@@ -45,5 +50,13 @@
   &__label {
     @include text(16px, 700, 140%);
     letter-spacing: 0%;
+  }
+}
+[data-error="true"] {
+  .counter__input {
+    border: 1px solid red;
+  }
+  .counter__label {
+    color: red;
   }
 }

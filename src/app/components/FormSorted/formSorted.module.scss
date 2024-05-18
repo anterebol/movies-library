@@ -1,6 +1,8 @@
 @import '../../../styles/colors.scss';
+@import '../../../styles/mixins.scss';
 
 .formSort {
+  width: 980px;
   justify-content: right;
   align-items: last baseline;
   padding: 0;
@@ -8,12 +10,11 @@
   gap: 24px 16px;
 
   &__button {
+    @include text(14px, 500, 20px, $grey-color);
     background: none;
-    color: $grey-color;
     padding: 0;
     height: 42px;
     width: 80px;
-    transition: .4s;
     &:hover {
       color: $grey-color;
       background: none;

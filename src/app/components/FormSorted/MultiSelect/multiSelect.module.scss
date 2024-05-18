@@ -2,6 +2,22 @@
 @import '../../../../styles/mixins.scss';
 
 .select {
+  &__opened {
+    border: 1px solid $purple-color;
+    border-radius: 8px;
+  }
+  &__group {
+    gap: 5px;
+  }
+  &__pill {
+    background: none;
+    padding: 0;
+    margin: 0;
+    span {
+      @include text(14px, 400, 20px, $black-color);
+    }
+  }
+
   &__option {
     padding: 8px 12px 8px 12px;
     border-radius: 8px; 
@@ -11,7 +27,7 @@
       background: $purple-color;
       color: $white-color;
     }
-    
+
     &:hover {
       background: $light-pink-color;
       color: $black-color;

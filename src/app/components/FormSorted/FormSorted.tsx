@@ -1,6 +1,5 @@
 import { Button, Flex, Group } from "@mantine/core";
 import { useForm } from "@mantine/form";
-import { CustomSelect } from "./CustomSelect/CustomSelect";
 import classes from './formSorted.module.scss';
 import { useMemo } from "react";
 import { sortProps } from "@/constants/selectSortedProps";
@@ -11,6 +10,8 @@ import { useAppSelector } from "@/hooks/hooks";
 import initialValues from "@/constants/formSortedInitialValues";
 import { FormSortedProps } from "@/types/formSortedProps";
 import { getSelectYears } from "@/utils/getSelectYears";
+import { CustomSelect } from "./CustomSelect/CustomSelect";
+import { MultiSelect } from "./MultiSelect/MultiSelect";
 
 export default function FormSorted(props: FormSortedProps) {
   const { searchFormValues } = useAppSelector((state) => state);
@@ -26,7 +27,7 @@ export default function FormSorted(props: FormSortedProps) {
       form.validate();
       const formValues = form.getValues();
       const formState = {
-        genre: formValues.genre,
+        genres: formValues.genres,
         release_year: formValues.release_year,
         rating_from: formValues.rating_from,
         rating_to: formValues.rating_to, 
@@ -57,21 +58,19 @@ export default function FormSorted(props: FormSortedProps) {
   }
 
   return <Flex className={classes.formSort} wrap={'wrap'}>
-    <CustomSelect 
-      selectKey={form.key('genre')} 
-      inputProps={form.getInputProps('genre')} 
-      data={genres}
-      label="Genres"
-      defaultValue={searchFormValues.genre}
-      placeholder="Select genre"
+    <MultiSelect 
+      data={genres} 
+      placeholder={"Select genre"} 
+      label={"Genres"} 
+      onChange={(value: Array<string>) => form.setFieldValue('genres', value)} 
+      defaultValue={searchFormValues.genres}
     />
     <CustomSelect 
-      selectKey={form.key('release_year')} 
-      inputProps={form.getInputProps('release_year')} 
       data={yearsData}
       defaultValue={searchFormValues.release_year}
       label="Release year"
       placeholder="Select release year"
+      onChange={(val: string) => form.setFieldValue('release_year', val)}
     />
     <Group gap={8} align="last baseline">  
       <CounterInput 
@@ -99,13 +98,12 @@ export default function FormSorted(props: FormSortedProps) {
     >
       Reset filters
     </Button>
-    <CustomSelect 
-      selectKey={form.key('sort_by')} 
-      inputProps={form.getInputProps('sort_by')} 
+    <CustomSelect
       data={sortProps}
       label="Sort by"
       defaultValue={searchFormValues.sort_by}
       placeholder="Choose sort properties"
+      onChange={(val: string) => form.setFieldValue('sort_by', val)}
     />
   </Flex>
 }

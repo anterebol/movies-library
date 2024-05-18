@@ -1,27 +1,68 @@
+import { Combobox, Input, InputBase, useCombobox } from '@mantine/core';
 import classes from './customSelect.module.scss';
-import { Select } from "@mantine/core";
-import Image from 'next/image';
-import selectDefaultButton from '@/assets/form/default-select.svg';
 import { CustomSelectProps } from '@/types/CustopSelectType';
+import { SelectButton } from '../SelectButton/SelectButton';
 
-export const CustomSelect = (props: CustomSelectProps) => {
-  const { selectKey, inputProps, data, label, placeholder, defaultValue } = props;
-  return <Select
-      label={label}
-      placeholder={placeholder}
-      searchable
-      rightSection={<Image alt="select_button" src={selectDefaultButton} />}
-      rightSectionWidth={24}
-      key={selectKey}
-      {...inputProps}
-      maxDropdownHeight={200}
+export function CustomSelect(props: CustomSelectProps) {
+  const { data, label, placeholder, defaultValue, onChange } = props;
+  const combobox = useCombobox({
+    onDropdownClose: () => combobox.resetSelectedOption(),
+  });
+
+  const selectedOption = data.find((item) => item.value === defaultValue);
+
+  const options = data.map(({value, label}) => (
+    <Combobox.Option 
+      value={value} 
+      key={label} 
+      active={defaultValue === value}
+      className={classes.select__option}
+    >
+      {label}
+    </Combobox.Option>
+  ));
+  
+  const onSubmit = (value: string) => {
+    combobox.closeDropdown();
+    onChange(value);
+  }
+
+  return (
+    <Combobox
+      store={combobox}
+      withinPortal={false}
       classNames={{
-        root: [classes.select],
-        wrapper: classes.select__wrapper,
-        input: classes.select__input,
-        label: classes.select__label,
+        options: classes.select__options,
       }}
-      defaultValue={defaultValue}
-      data={data}
-    />
+      onOptionSubmit={onSubmit}
+    >
+      <Combobox.Target>
+        <InputBase
+          component="button"
+          type="button"
+          pointer
+          label={label}
+          size='customInput'
+          rightSection={<SelectButton isSelectOpen={combobox.dropdownOpened} />}
+          onClick={() => {
+            combobox.toggleDropdown();
+          }}
+          rightSectionPointerEvents="none"
+          multiline
+        >
+          {selectedOption ? (
+            selectedOption.label
+          ) : (
+            <Input.Placeholder>{placeholder}</Input.Placeholder>
+          )}
+        </InputBase>
+      </Combobox.Target>
+
+      <Combobox.Dropdown>
+        <Combobox.Options>
+          {options.length === 0 ? <Combobox.Empty>Nothing found</Combobox.Empty> : options}
+        </Combobox.Options>
+      </Combobox.Dropdown>
+    </Combobox>
+  );
 }
