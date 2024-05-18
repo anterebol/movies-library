@@ -9,5 +9,6 @@ export interface PaginationButtonProps {
   className: string, 
   disabled?: boolean, 
   onClick: () => void, 
-  paginationItem: string | ReactNode 
+  paginationItem: string | ReactNode,
+  onHover?: (state: boolean) => void
 }

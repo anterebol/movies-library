@@ -14,9 +14,6 @@ const initialState = {
   movies: [] as MovieProps[],
   totalPages: 500,
   genres: [{id: '', name: ''}],
-  isNextPage: true,
-  isPrevPage: true,
-  currentPage: 1,
   movie: { trailer: '' },
   searchTitle: '',
   searchFormValues: initialValues,
@@ -28,7 +25,7 @@ const appSlice = createSlice({
   initialState: { ...initialState },
   reducers: {
     setFormValues: (state, action) => {
-      state.searchFormValues = action.payload as KeyAsString;
+      state.searchFormValues = action.payload;
     },
     openEstimateModal: (state, action) => {
       state.isOpenModal = true;
@@ -42,21 +39,6 @@ const appSlice = createSlice({
       const { user_grade } = action.payload;
       const currentEstimate = {...state.currentEstimateItem, user_grade}
       state.currentEstimateItem = currentEstimate;
-    },
-    setCurrentPage: (state, action) => {
-      state.currentPage = action.payload;
-      state.isNextPage = false;
-      state.isPrevPage = false;
-    },
-    openNextPage: (state, action) => {
-      state.currentPage = action.payload
-      state.isNextPage = true;
-      state.isPrevPage = false;
-    },
-    openPrevPage: (state, action) => {
-      state.currentPage = action.payload
-      state.isNextPage = false;
-      state.isPrevPage = true;
     },
     getEstimatedMovies: (state, action) => {
       state.isLoad = true;
@@ -112,5 +94,5 @@ const appSlice = createSlice({
     });
   },
 });
-export const { openEstimateModal, setUserGrade, closeEstimateModal, setCurrentEstimage, openNextPage, openPrevPage, setCurrentPage, setFormValues, getEstimatedMovies } = appSlice.actions;
+export const { openEstimateModal, setUserGrade, closeEstimateModal, setCurrentEstimage, setFormValues, getEstimatedMovies } = appSlice.actions;
 export default appSlice.reducer;

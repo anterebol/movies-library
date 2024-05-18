@@ -13,6 +13,7 @@
     border-radius: 4px;
     color: $black-color;
     cursor: pointer;
+    background: $white-color;
     padding: 0px 8px 0px 8px;
 
     &:hover {
@@ -24,15 +25,16 @@
     &:disabled {
       border: 1px solid $disabled-grey-color;
       cursor: default;
+      background: $white-color;
       &:hover {
         opacity: 1;
-        background: transparent;
+        background: $white-color;
         img {
-          opacity: .6;
+          opacity: .5;
         }
       }
-      img {
-        opacity: .6;
+      svg {
+        opacity: .5;
       }
     }
 
