@@ -40,7 +40,7 @@ export default function MoviesPageLayout (props: { children: ReactNode, link: st
         <Flex 
           direction={isMoviesPage ? 'column': 'row'} 
           justify={isMoviesPage ? 'stretch' : 'space-between'}
-          mb={isMoviesPage ? 0 : 20}
+          mb={isMoviesPage ? 0 : 16}
         >
           <HideBox isShow={isMoviesPage}>
             {children}

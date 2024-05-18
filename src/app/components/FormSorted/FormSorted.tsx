@@ -40,6 +40,25 @@ export default function FormSorted(props: FormSortedProps) {
       rating_to: (value, values) => getRatingToError(Number(value), Number(values.rating_from)),
     },
   });
+
+  const isFormEmpty = () => {
+    return Object.entries(searchFormValues).every(([key, value]) => {
+      if (key === 'genres') {
+        if (!value.length) {
+          return true;
+        }
+        return false;
+      } else if (key === 'sort_by') {
+        if (value === 'popularity.desc') {
+          return true;
+        }
+        return false;
+      } else if (!value) {
+        return true;
+      }
+      return false;
+    })
+  }
   
   const setFormRating = (type: string, operation?: string) => {
     const allFormValues = form.getValues();
@@ -92,9 +111,10 @@ export default function FormSorted(props: FormSortedProps) {
       />
     </Group>
     <Button 
-      className={classes.formSort__button} 
+      className={classes.formSort__reset__button} 
       onClick={resetForm} 
       title="Reset form"
+      disabled={isFormEmpty()}
     >
       Reset filters
     </Button>

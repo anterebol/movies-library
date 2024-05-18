@@ -4,6 +4,7 @@
 .empty__state {
   @include flex(column, center, center);
   gap: 16px;
+  margin-top: 25px;
 
   &__text {
     @include text(20px, 600, 24px);

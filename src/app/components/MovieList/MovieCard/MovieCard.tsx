@@ -109,7 +109,7 @@ export const MovieCard = (props: MovieCardProps) => {
               readOnly
             />
             <Text className={classes.card__movie__rating__grade} text={vote_average} />
-            <Text className={classes.card__movie__rating__votes} text={`(${vote_count})`} />
+            <Text className={classes.card__movie__rating__votes} text={`(${vote_count}M)`} />
           </Box>
         </Flex>
         <Flex direction={'column'} gap={12}>

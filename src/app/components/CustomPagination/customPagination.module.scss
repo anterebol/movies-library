@@ -21,6 +21,10 @@
       color: $white-color;
       opacity: .7;
     }
+    &:active {
+      background: $dark-purple-color;
+      opacity: 1;
+    }
     
     &:disabled {
       border: 1px solid $disabled-grey-color;

@@ -7,7 +7,7 @@ import { SelectButton } from '../SelectButton/SelectButton';
 const MAX_DISPLAYED_VALUES = 2;
 
 export function MultiSelect(props: MultipleSelectProps) {
-  const { defaultValue, data, onChange, placeholder } = props;
+  const { defaultValue, data, onChange, placeholder, label } = props;
   const combobox = useCombobox({
     onDropdownClose: () => combobox.resetSelectedOption(),
   });
@@ -59,8 +59,11 @@ export function MultiSelect(props: MultipleSelectProps) {
           rightSection={<SelectButton isSelectOpen={isDropdownOpened} />}
           rightSectionPointerEvents="none"
           pointer 
-          className={isDropdownOpened ? classes.select__opened : ''}
+          label={label}
           size='customInput'
+          classNames={{
+            input: isDropdownOpened ? classes.select__opened : '',
+          }}
           onClick={(e) => {
             e.stopPropagation()
             combobox.toggleDropdown()

@@ -39,14 +39,16 @@
 
     &__rating {
       @include flex(row, stretch, center);
+      height: 28px;
 
       &__grade {
-        font-weight: 600;
-        color: $black-color;
-        // height: 20px;
-        line-height: 20px;
+        @include text(16px, 600, 20px, $black-color);
         margin-left: 6.36px;
-        margin-right: 8px
+        margin-right: 8px;
+      }
+      &__votes {
+        @include text(16px, 400, 16px, $grey-color);
+        height: 16px
       }
     }
     &__description {

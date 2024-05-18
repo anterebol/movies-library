@@ -9,15 +9,22 @@
   margin: 0;
   gap: 24px 16px;
 
-  &__button {
-    @include text(14px, 500, 20px, $grey-color);
+  &__reset__button {
+    @include text(14px, 500, 20px, $purple-color);
     background: none;
     padding: 0;
     height: 42px;
-    width: 80px;
+    width: 81px;
     &:hover {
-      color: $grey-color;
+      color: $light-purple-color;
       background: none;
+    }
+    &:active {
+      color: $dark-purple-color;
+      background: none;
+    }
+    &:disabled {
+      color: $grey-color;
     }
   }
 }

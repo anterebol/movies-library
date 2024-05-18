@@ -1,9 +1,8 @@
 import { MovieProps } from '@/types/movieType';
 import { getStorageItem, setStorageItem } from '@/utils/localStorage';
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
-import { getGenres, getMovie, getMovies, getPosterConfig, getTrailer } from './api/api';
+import { getGenres, getMovies, getPosterConfig } from './api/api';
 import initialValues from '@/constants/formSortedInitialValues';
-import { KeyAsString } from '@/types/KeyAsString';
 
 const emtyGrade = {id: '', user_grade: 0, original_title: ''};
 const initialState = {

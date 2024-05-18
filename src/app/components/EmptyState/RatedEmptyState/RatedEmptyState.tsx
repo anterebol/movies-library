@@ -16,9 +16,13 @@ export const RatedEmptyState = () => {
         className={classes.empty__state__text} 
         text={`You haven't rated any films yet`}  
       />
-      <Button className={classes.empty__state__button} onClick={() => {
-        router.push(`/movies?page=1`)
-      }}>
+      <Button 
+        className={classes.empty__state__button} 
+        size="vb"
+        onClick={() => {
+          router.push(`/movies?page=1`)
+        }}
+      >
         Find movies
       </Button>
     </Box>

@@ -26,10 +26,11 @@ export default function MoviePage({ params }: { params: {id: string} }) {
     setIsLoad(true);
     dispatch(getMovie(id))
       .then((res) => {
+        console.log(res.payload)
         setMovie(res.payload);
         dispatch(getTrailer(res.payload.id))
           .then((res) => 
-            setTrailerKey(res.payload?.results[1]?.key))
+            setTrailerKey(res.payload?.results[0]?.key))
     }).finally(() => setIsLoad(false));
   }
 
@@ -55,7 +56,7 @@ export default function MoviePage({ params }: { params: {id: string} }) {
             <>
               <Flex gap={10} align={'center'}>
                 <Title title={'Movies'} tag="h2" />
-                <p>/</p>
+                <h2 style={{color: "black"}}>/</h2>
                 <Title title={movie.original_title} tag="h2" />
               </Flex>
               <MovieCard 

@@ -13,12 +13,8 @@
     @include text(20px, 600, 24px);
   }
   &__button {
-    background: $purple-color;
     padding: 10px 20px 10px 20px;
-    border-radius: 8px;
-    &:hover {
-      background: $purple-color;
-      opacity: .7;
-    }
+    width: 122px;
+    height: 40px;
   }
 }
