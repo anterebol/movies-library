@@ -9,9 +9,7 @@
   padding-top: 40px;
   padding-bottom: 20px;
   height: 100%;
-  h2 {
-    @include text(32px, 700, 140%);
-  }
+  width: 100%;
 }
 .responsiveMainContainer {
   @include flex(column);
@@ -24,5 +22,75 @@
   h2 {
     @include text(14px, 400, 20px, $purple-color);
     letter-spacing: 0px;
+  }
+}
+.violet__button {
+  @include flex(row, center, center);
+  border-radius: 8px;
+  background: $purple-color;
+  @media (max-width: 800px) {
+    @include text(14px, 400, 16px, $white-color);
+    width: 80px;
+  }
+  &:hover {
+    background: $light-purple-color;
+  }
+  &:active {
+    background: $dark-purple-color;
+  }
+}
+
+.main__title {
+  @include text(32px, 700, 140%);
+}
+
+.button__none {
+  @include flex(row, center, center);
+  background: none;
+  &:hover {
+    background: none;
+  }
+}
+
+.select {
+  @include flex(column);
+  gap: 8px;
+
+  &__wrapper {
+    height: 42px;
+    padding: 0;
+    margin: 0;
+    [data-position="right"] {
+      right: 12px;
+      @include flex(row, stretch, center);
+    }
+  }
+
+  &__input {
+    display: flex;
+    align-items: center;
+    width: 283px;
+    height: 42px;
+    border: 1px solid $grey-line-color;
+    border-radius: 8px;
+    font-size: 14px;
+    padding: 0 12px;
+    cursor: pointer;
+    &[data-expanded="true"] {
+      border: 1px solid $purple-color;
+    }
+
+    span {
+      @include text(14px, 400, 20px, $grey-no-poster-color);
+      letter-spacing: 0px;
+    }
+  }
+  &__group {
+    gap: 5px;
+  }
+
+  &__label {
+    @include text(16px, 700, 140%);
+    letter-spacing: 0%;
   }
 }
