@@ -32,15 +32,9 @@
   }
   &__save__button {
     @include text(14px, 700, 100%, $white-color);
-    border-radius: 8px;
     padding: 10px 20px 10px 20px;
     height: 42px;
     width: 80px;
-    background: $purple-color;
-    &:hover {
-      background: $purple-color;
-      opacity: .8;
-    }
   }
   &__remove__button {
     @include text(14px, 600, 100%, $purple-color);

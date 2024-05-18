@@ -11,7 +11,7 @@ export const MovieList = () => {
   const posterSize = useMemo(() => getPosterSize(postersConfig.images.poster_sizes, moviesPosterSize), [postersConfig.images.poster_sizes]);
 
   return (
-    <Group justify="space-between">
+    <Group justify="space-between" mih={452} align={'flex-start'}>
       {movies.map((movie) => {
         const { id } = movie;
         return (

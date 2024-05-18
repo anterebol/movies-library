@@ -31,7 +31,7 @@ export const MovieCard = (props: MovieCardProps) => {
   } = movie;
 
   const dispatch = useAppDispatch();
-  const [isLoad, setIsLoad] = useState(true);
+  const [isLoad, setIsLoad] = useState(!!poster_path);
 
   useEffect(() => {
     const img = document.createElement('img');

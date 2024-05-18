@@ -56,7 +56,7 @@ export const ModalEstimate = () => {
             />
             <Flex direction={'row'} gap={16}>
               <Button 
-                size="md" 
+                size="vb" 
                 onClick={() => {setModalGrade('saveGrade')}}
                 classNames={{
                   root: classes.modal__save__button

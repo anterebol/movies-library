@@ -28,9 +28,13 @@ export const MovieAdditionalInfo = (props: MovieAdditionalInfoProps) => {
           <Box className={classes.additional__info__trailer}>
             {trailerKey ? 
               <YouTube videoId={trailerKey} /> :
-              <Image width={50} height={50} alt="none_video" src={noneVideo} />
+              <Image 
+                width={50} 
+                height={50} 
+                alt="none_video" 
+                src={noneVideo} 
+              />
             }
-            {/* <NoneVideo /> */}
           </Box>
         </Flex>
         <Flex 
@@ -62,12 +66,15 @@ export const MovieAdditionalInfo = (props: MovieAdditionalInfoProps) => {
               gap={8}
               h={40}
             >
-              <Box className={classes.additional__info__logo}>
-                <Box 
-                  className={classes.additional__info__logo__img} 
-                  bg={`url(https://image.tmdb.org/t/p/${logoSize}${logo_path}) center center / contain no-repeat`} 
-                />
-              </Box>
+              {logo_path && 
+                <Box className={classes.additional__info__logo}>
+                  <Box 
+                    className={classes.additional__info__logo__img} 
+                    bg={`url(https://image.tmdb.org/t/p/${logoSize}${logo_path}) 
+                    center center / contain no-repeat`} 
+                  />
+                </Box>
+              }
               <Text className={classes.additional__info__logo__text} text={name} />
             </Flex>
           )}

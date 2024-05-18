@@ -1,11 +1,10 @@
 "use client"
 import { useAppDispatch, useAppSelector } from "@/hooks/hooks";
 import MoviesPageLayout from "../components/MoviesPageLayout/MoviesPageLayout";
-import { Title } from "../components/Title/Title";
 import { getEstimatedMovies } from "@/store/appReducer";
-import { FormEventHandler, Suspense, useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
-import { Button, TextInput } from "@mantine/core";
+import { Button, TextInput, Title } from "@mantine/core";
 import searchIcon from '@/assets/search.svg';
 import Image from "next/image";
 import classes from './rated_movies.module.scss';
@@ -27,7 +26,9 @@ function RatedMovies() {
 
   return (
     <MoviesPageLayout page={page} link={"rated_movies"}>
-      <Title title={"Rated movies"} tag={"h2"} />
+      <Title size={'mt'} title={"Rated movies"}>
+        Rated movies
+      </Title>
       <TextInput
         classNames={{
           root: classes.search,
@@ -50,6 +51,7 @@ function RatedMovies() {
         }
         rightSection={
           <Button  
+            size="vb"
             className={classes.search__button}
             title="Saerch"
             onClick={getMoviesLocalStorage}

@@ -4,6 +4,7 @@
   @include flex(column, center, center);
   border: 1px solid $white-grey-color;
   gap: 4px;
+  border: 1px solid rgb(245, 245, 246);
   background: $disabled-grey-color;
 
   &__image {
@@ -12,6 +13,6 @@
   }
 
   &__text {
-    @include text(12px, 500, 16px, $grey-no-poster-color)
+    @include text(12px, 500, 16px, $grey-no-poster-color);
   }
 }

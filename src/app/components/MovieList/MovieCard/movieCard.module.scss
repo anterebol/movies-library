@@ -33,7 +33,7 @@
 
     &__title {
       @include text-overflow(85%, 48px, 2);
-      @include text(inherit, 600, 24px, $purple-color);
+      @include text(20px, 600, 24px, $purple-color);
       align-self: normal;
     }
 
@@ -43,7 +43,8 @@
       &__grade {
         font-weight: 600;
         color: $black-color;
-        height: 20px;
+        // height: 20px;
+        line-height: 20px;
         margin-left: 6.36px;
         margin-right: 8px
       }
