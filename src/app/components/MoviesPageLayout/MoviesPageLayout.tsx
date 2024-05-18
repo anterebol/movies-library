@@ -5,7 +5,6 @@ import { useAppDispatch, useAppSelector } from "@/hooks/hooks";
 import { getGenres, getPosterConfig } from "@/store/api/api";
 import { CustomPagination } from "@/app/components/CustomPagination/CustomPagination";
 import { useRouter } from 'next/navigation';
-import { openPrevPage } from "@/store/appReducer";
 import { MovieList } from "../MovieList/MovieList";
 import { getPageLink } from "@/utils/getPageLink";
 import { RatedEmptyState } from "../EmptyState/RatedEmptyState/RatedEmptyState";
@@ -30,10 +29,8 @@ export default function MoviesPageLayout (props: { children: ReactNode, link: st
   useEffect(() => {
     if (Number(page) > totalPages) {
       router.push(getPageLink(link, totalPages));
-      dispatch(openPrevPage(totalPages));
     } else if (Number(page) < 1) {
       router.push(getPageLink(link, 1));
-      dispatch(openPrevPage(1));
     }
   }, [totalPages, page]);
 
@@ -42,7 +39,9 @@ export default function MoviesPageLayout (props: { children: ReactNode, link: st
       <Container size={'main-container'}>
         <Flex 
           direction={isMoviesPage ? 'column': 'row'} 
-          justify={isMoviesPage ? 'stretch' : 'space-between'}>
+          justify={isMoviesPage ? 'stretch' : 'space-between'}
+          mb={isMoviesPage ? 0 : 20}
+        >
           <HideBox isShow={isMoviesPage}>
             {children}
             {!isLoad && !movies.length && currentEmptyState}
