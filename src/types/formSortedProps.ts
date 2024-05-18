@@ -1,7 +1,7 @@
-import { KeyAsString } from "./KeyAsString";
+import { SortType } from "@/constants/formSortedInitialValues";
 import { GenreType } from "./genreType";
 
 export interface FormSortedProps {
-  onChange: (apiProps: KeyAsString, isValid: boolean) => void, 
+  onChange: (apiProps: SortType, isValid: boolean) => void, 
   genres: Array<GenreType>
 }
