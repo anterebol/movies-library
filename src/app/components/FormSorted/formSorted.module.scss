@@ -2,12 +2,18 @@
 @import '../../../styles/mixins.scss';
 
 .formSort {
-  width: 980px;
+  width: 100%;
   justify-content: right;
   align-items: last baseline;
   padding: 0;
   margin: 0;
   gap: 24px 16px;
+  @media (max-width: 1300px) {
+    justify-content: center;
+    @media (max-width: 600px) {
+      text-align: center;
+    }
+  }
 
   &__reset__button {
     @include text(14px, 500, 20px, $purple-color);
@@ -25,6 +31,10 @@
     }
     &:disabled {
       color: $grey-color;
+    }
+    @media (max-width: 1300px) {
+      order: 5;
+      // width: 200px;
     }
   }
 }

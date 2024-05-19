@@ -16,7 +16,6 @@ export const MovieAdditionalInfo = (props: MovieAdditionalInfoProps) => {
       padding={24} 
       radius={12} 
       className={classes.additional__info} 
-      w={'100%'}
     >
       <Flex direction={'column'} gap={20} >
         <Flex direction={'column'} gap={16} >

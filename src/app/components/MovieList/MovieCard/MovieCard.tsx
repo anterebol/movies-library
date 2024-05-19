@@ -44,8 +44,8 @@ export const MovieCard = (props: MovieCardProps) => {
     dispatch(openEstimateModal({...movie, user_grade}));
   };
 
-  const cardHeight = isFullCard ? 400 : 218;
-  const cardWidth = isFullCard ? '100%' : 482;
+  const cardClassName = isFullCard ? classes.card__movie__full : classes.card__movie;
+  const imgClassName = isFullCard ? classes.card__movie__img__big : classes.card__movie__img__small
   const posterSizes = {height: isFullCard ? 352 : 170, width: isFullCard ? 250 : 119};
 
   const genresList = useMemo(() => {
@@ -65,7 +65,9 @@ export const MovieCard = (props: MovieCardProps) => {
   const releaseYear = useMemo(() => getYear(release_date), [release_date]);
 
   return (
-    <Card h={cardHeight} className={classes.card__movie} w={cardWidth} padding={24}>
+    <Card classNames={{
+      root: cardClassName,
+    }}>
       <Group className={classes.card__movie__rating__button}>
         <Rating 
           onClick={(e) => {setMovieGrade(e)}} 
@@ -76,13 +78,13 @@ export const MovieCard = (props: MovieCardProps) => {
         />
         {user_grade && <Text className={classes.card__movie__rating__button__grade} text={user_grade}/>}
       </Group>
-      <Box w={posterSizes.width} h={posterSizes.height} >
+      <Box className={imgClassName} >
         {isLoad ? 
           <Preloader /> : 
           poster_path ? 
             <Image 
-              w={posterSizes.width} 
-              h={posterSizes.height} 
+              w={'100%'} 
+              h={'100%'} 
               src={`https://image.tmdb.org/t/p/${posterSize}${poster_path}`} 
               alt={`${original_title}_poster`} 
             /> : 
@@ -90,11 +92,7 @@ export const MovieCard = (props: MovieCardProps) => {
         }
       </Box>
       <Box className={classes.card__movie__info}>
-        <Flex 
-          direction={"column"} 
-          gap={8} 
-          align={'flex-start'}
-        >
+        <Flex classNames={{root: classes.card__movie__info__main}}>
           <Title 
             title={original_title} 
             tag={'h3'} 
@@ -121,10 +119,12 @@ export const MovieCard = (props: MovieCardProps) => {
               <FlexItem title={"Gross worldwide"} description={setMoney(revenue)} />
               <FlexItem title={"Genres"} description={genresList} />
             </> : 
-            <Flex gap={8} align={'baseline'}>
-              <Text text="Genres" />
-              <Text className={classes.card__movie__description} text={genresList} />
-            </Flex>
+            <Box 
+              className={classes.card__movie__addition}
+            >
+              <Text text="Genres" className={classes.card__movie__description} />
+              <Text className={classes.card__movie__value} text={genresList} />
+            </Box>
           }
         </Flex>
       </Box>

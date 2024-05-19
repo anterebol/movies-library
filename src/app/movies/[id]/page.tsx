@@ -8,8 +8,9 @@ import { useAppDispatch, useAppSelector } from "@/hooks/hooks";
 import { getMovie, getPosterConfig, getTrailer } from "@/store/api/api";
 import { MovieProps } from "@/types/movieType";
 import { getPosterSize } from "@/utils/getPosterSize";
-import { Container, Flex } from "@mantine/core";
+import { Box, Container, Flex } from "@mantine/core";
 import { useEffect, useMemo, useState } from "react";
+import classes from './movie.module.scss';
 
 const moviesPosterSize = 250;
 const logoWidth = 40;
@@ -26,7 +27,6 @@ export default function MoviePage({ params }: { params: {id: string} }) {
     setIsLoad(true);
     dispatch(getMovie(id))
       .then((res) => {
-        console.log(res.payload)
         setMovie(res.payload);
         dispatch(getTrailer(res.payload.id))
           .then((res) => 
@@ -36,7 +36,7 @@ export default function MoviePage({ params }: { params: {id: string} }) {
 
   useEffect(() => {
     dispatch(getPosterConfig());
-    getMovieById()
+    getMovieById();
   }, []);
 
   const posterSize = useMemo(() => getPosterSize(postersConfig.images.poster_sizes, moviesPosterSize), [postersConfig]);
@@ -46,19 +46,14 @@ export default function MoviePage({ params }: { params: {id: string} }) {
   return (
     <GeneralLayout>
       <Container size={'card-container'}>
-        <Flex 
-          direction={'column'} 
-          gap={20} 
-          h={'inherit'} 
-          justify={'center'}
-        >
+        <Box className={classes.movie__box}>
           {isLoad ? <Preloader /> : 
             <>
-              <Flex gap={10} align={'center'}>
+              <Box className={classes.movie__title}>
                 <Title title={'Movies'} tag="h2" />
                 <h2 style={{color: "black"}}>/</h2>
                 <Title title={movie.original_title} tag="h2" />
-              </Flex>
+              </Box>
               <MovieCard 
                 isFullCard={true} 
                 movie={movie} 
@@ -74,7 +69,7 @@ export default function MoviePage({ params }: { params: {id: string} }) {
               />
             </>
           }
-        </Flex>
+        </Box>
       </Container>
     </GeneralLayout>
   )

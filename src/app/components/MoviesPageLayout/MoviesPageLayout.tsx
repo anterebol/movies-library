@@ -12,6 +12,7 @@ import { SearchEmptyState } from "../EmptyState/SearchEmptyState/SearchEmptyStat
 import { Preloader } from "../Preloader/Preloader";
 import { HideBox } from "../HideBox/HideBox";
 import { GeneralLayout } from "../GeneralLayout/GeneralLayout";
+import classes from './moviesLayout.module.scss';
 
 export default function MoviesPageLayout (props: { children: ReactNode, link: string, page: string}) {
   const { children, link, page } = props;
@@ -38,9 +39,9 @@ export default function MoviesPageLayout (props: { children: ReactNode, link: st
     <GeneralLayout>
       <Container size={'main-container'}>
         <Flex 
-          direction={isMoviesPage ? 'column': 'row'} 
-          justify={isMoviesPage ? 'stretch' : 'space-between'}
-          mb={isMoviesPage ? 0 : 16}
+          classNames={{
+            root: isMoviesPage ? classes.movies__header : classes.rated__header
+          }}
         >
           <HideBox isShow={isMoviesPage}>
             {children}

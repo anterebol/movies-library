@@ -1,5 +1,11 @@
 .container {
   &__title {
     margin-bottom: 40px;
+    @media (max-width: 1300px) {
+      margin-bottom: 20px;
+      @media (max-width: 500px) {
+        margin-bottom: 0;
+      }
+    }
   }
 }
