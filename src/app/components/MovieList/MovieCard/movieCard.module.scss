@@ -44,7 +44,7 @@
         @media (max-width: 500px) {
           @include flex(column, center, center);
           padding: 10px;
-          width: 240px;
+          width: 95%;
           height: initial;
           flex-wrap: wrap;
           text-align: center;
@@ -55,6 +55,12 @@
     &__img__small {
       width: 119px;
       height: 170px;
+      @media (max-width: 500px) {
+        border-radius: 8px;
+        img {
+          border-radius: 8px;
+        }
+      }
     }
     &__img__big {
       width: 250px;
@@ -62,6 +68,10 @@
       @media (max-width: 500px) {
         width: 119px;
         height: 170px;
+        border-radius: 8px;
+        img {
+          border-radius: 8px;
+        }
       }
     }
 
@@ -109,10 +119,10 @@
 
       @media (max-width: 1300px) {
         @include text-overflow(80%, 48px, 3);
-        @include text(16px, 400, 16px, $purple-color);
+        @include text(16px, 600, 16px, $purple-color);
         @media (max-width: 500px) {
           margin: 0 auto;
-          font-size: 14px;
+          // font-size: 14px;
         }
       }
     }

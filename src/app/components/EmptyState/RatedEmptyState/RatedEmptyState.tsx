@@ -11,7 +11,7 @@ export const RatedEmptyState = () => {
 
   return (
     <Box className={classes.empty__state}>
-      <Image width={400} height={300} alt="empty_state" src={emptyState} />
+      <Image className={classes.empty__state__img} alt="empty_state" src={emptyState} />
       <Text 
         className={classes.empty__state__text} 
         text={`You haven't rated any films yet`}  

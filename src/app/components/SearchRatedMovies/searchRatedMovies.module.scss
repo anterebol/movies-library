@@ -1,0 +1,79 @@
+@import '../../../styles/mixins.scss';
+@import '../../../styles/colors.scss';
+
+.search {
+  @include flex(row, stretch, center);
+
+  @media (max-width: 1300px) {
+    max-width: 300px;
+    height: 40px;
+    
+    @media (max-width: 600px) {
+      height: 30px;
+      width: 250px;
+    }
+  }
+
+  &__wrapper {
+    @include flex(row, space-between, center);
+    width: 490px;
+    height: 48px;
+
+    @media (max-width: 500px) {
+      height: 30px;
+    }
+    [data-position="right"] {
+      @include flex(row, stretch, center);
+      @media (max-width: 1300px) {
+        justify-content: flex-end;
+        right: 5px;
+      }
+    }
+
+    [data-position="left"] {
+      width: 12px;
+      left: 8px;
+    }
+  }
+
+  &__input {
+    @include text(14px, 400, 20px);
+    height: inherit;
+    border-radius: 8px;
+    border: 1px solid $disabled-grey-color;
+    width: 100%;
+    @media (max-width: 500px) {
+      padding-left: 25px;
+      padding-right: 0;
+      width: 100%;
+    }
+    &::placeholder {
+      @include text(14px, 400, 20px, $grey-no-poster-color);
+      letter-spacing: 0px;
+      @media (max-width: 500px) {
+        @include text(12px, 400, 16px, $grey-no-poster-color);
+      }
+    }
+    &:focus {
+      border: 1px solid $purple-color;
+    }
+  }
+
+  &__button {
+    @include text(14px, 600, 140%, $white-color);
+    letter-spacing: 0%;
+    padding: 6px 20px 6px 20px;
+    width: 89px;
+    height: 32px;
+    @media (max-width: 1300px) {
+      @include text(14px, 400, 100%, $white-color);
+      max-width: 60px;
+      height: 30px;
+    }
+    @media (max-width: 600px) {
+      @include text(12px, 400, 100%, $white-color);
+      max-width: 50px;
+      height: 25px;
+    }
+  }
+}

@@ -19,7 +19,7 @@ export default function RootLayout({
           name="viewport"
           content="width=device-width, initial-scale=1.0"
         />
-        <link rel="icon" type="image/x-icon" href="./public/favicon.png"></link>
+        <link rel="icon" type="image/x-icon" href="./favicon.png"></link>
         <title>Movies library</title>
 
         <ColorSchemeScript />

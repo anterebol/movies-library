@@ -6,6 +6,10 @@
     width: 100%;
     max-width: 380px;
     height: 208px;
+    @media (max-width: 400px) {
+      max-width: 300px;
+      height: initial;
+    }
   }
   &__header {
     @include flex(row, space-between, center);
@@ -34,6 +38,14 @@
   &__rating {
     width: 348px;
     @include flex(row, space-between);
+    @media (max-width: 400px) {
+      width: 100%;
+      & > div {
+        width: 25px;
+        height: 25px
+      }
+      
+    }
   }
   &__save__button {
     @include text(14px, 700, 100%, $white-color);

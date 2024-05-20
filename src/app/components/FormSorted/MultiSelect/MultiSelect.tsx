@@ -74,7 +74,7 @@ export function MultiSelect(props: MultipleSelectProps) {
               <>
                 {values}
                 {defaultValue.length > MAX_DISPLAYED_VALUES && (
-                  <Pill className={classes.select__pill}>
+                  <Pill p={'2px 8px'}>
                     +{defaultValue.length - MAX_DISPLAYED_VALUES} more
                   </Pill>
                 )}

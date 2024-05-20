@@ -7,9 +7,19 @@
   flex-wrap: nowrap;
   max-height: 48px;
 
+  @media (max-width: 900px) {
+    max-height: inherit;
+    @media (max-width: 900px) {
+      @include text-overflow(100%, inherit, 5);
+    }
+  }
+
   &__title {
     @include text(16px, 400, 19px, $grey-color);
     width: 140px;
+    @media (max-width: 500px) {
+      margin: 0 auto;
+    }
   }
   
   &__description {
@@ -17,11 +27,5 @@
     @include text(16px, 400, 20px, $black-color);
     letter-spacing: 0px;
     
-  }
-  @media (max-width: 900px) {
-    max-height: inherit;
-    @media (max-width: 900px) {
-      @include text-overflow(100%, inherit, 5);
-    }
   }
 }

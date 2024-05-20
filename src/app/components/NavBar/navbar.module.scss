@@ -3,8 +3,8 @@
 
 .side__bar {
   &__burger {
-    position: absolute;
-    left: 6px;
+    position: fixed;
+    left: 5px;
     top: 10px;
     background: $purple-color;
     border-radius: 8px;
@@ -22,6 +22,10 @@
       visibility: visible;
       opacity: 1;
       z-index: 2;
+      @media (max-width: 500px) {
+        height: 30px;
+        padding: 0 2px;
+      }
     }
   }
 }
@@ -50,7 +54,7 @@
 .left__emty__box {
   display: none;
   width: 50px;
-  min-width: 48px;
+  min-width: 40px;
   left: 0;
   position: relative;
   background: $white-purple-color;
@@ -69,6 +73,13 @@
   box-sizing: border-box;
   background: $white-purple-color;
   transition: ease .5;
+
+  @media (max-width: 1150px) {
+    position: fixed;
+    left: -280px;
+    z-index: 111;
+    transition: ease 1s;
+  }
 
   &__list {
     @include flex(column);
@@ -92,13 +103,6 @@
         background: $purple-light-color;
       }
     }
-  }
-
-  @media (max-width: 1150px) {
-    position: absolute;
-    left: -280px;
-    z-index: 3;
-    transition: ease 1s;
   }
 }
 .navbar__opened {

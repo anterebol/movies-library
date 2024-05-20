@@ -14,6 +14,7 @@ import { NonePoster } from "../../NonePoster/NonePoster";
 import { MovieCardProps } from "@/types/movieCardProps";
 import { GenreType } from "@/types/genreType";
 import { Preloader } from "../../Preloader/Preloader";
+import { setStringVotes } from "@/utils/setStringVotes";
 
 export const MovieCard = (props: MovieCardProps) => {
   const { movie, posterSize, allGenres, user_grade, isFullCard } = props
@@ -107,7 +108,7 @@ export const MovieCard = (props: MovieCardProps) => {
               readOnly
             />
             <Text className={classes.card__movie__rating__grade} text={vote_average} />
-            <Text className={classes.card__movie__rating__votes} text={`(${vote_count}M)`} />
+            <Text className={classes.card__movie__rating__votes} text={`(${setStringVotes(vote_count)})`} />
           </Box>
         </Flex>
         <Flex direction={'column'} gap={12}>

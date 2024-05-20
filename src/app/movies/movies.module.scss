@@ -1,3 +1,4 @@
+@import '../../styles/mixins.scss';
 .container {
   &__title {
     margin-bottom: 40px;
@@ -8,4 +9,10 @@
       }
     }
   }
+}
+
+.movies__header {
+  @include flex(column);
+  gap: 16px;
+  flex-wrap: wrap;
 }

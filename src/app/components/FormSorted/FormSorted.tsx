@@ -91,7 +91,7 @@ export default function FormSorted(props: FormSortedProps) {
       placeholder="Select release year"
       onChange={(val: string) => form.setFieldValue('release_year', val)}
     />
-    <Group gap={8} align="last baseline">  
+    <Group gap={8} align="last baseline" justify="center">  
       <CounterInput 
         selectKey={form.key('rating_from')}
         inputProps={form.getInputProps('rating_from')} 

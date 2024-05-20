@@ -1,26 +1,23 @@
 "use client"
 import { ReactNode, useEffect } from "react";
-import { Container, Flex } from "@mantine/core";
+import { Container } from "@mantine/core";
 import { useAppDispatch, useAppSelector } from "@/hooks/hooks";
 import { getGenres, getPosterConfig } from "@/store/api/api";
 import { CustomPagination } from "@/app/components/CustomPagination/CustomPagination";
 import { useRouter } from 'next/navigation';
 import { MovieList } from "../MovieList/MovieList";
 import { getPageLink } from "@/utils/getPageLink";
-import { RatedEmptyState } from "../EmptyState/RatedEmptyState/RatedEmptyState";
-import { SearchEmptyState } from "../EmptyState/SearchEmptyState/SearchEmptyState";
 import { Preloader } from "../Preloader/Preloader";
 import { HideBox } from "../HideBox/HideBox";
 import { GeneralLayout } from "../GeneralLayout/GeneralLayout";
-import classes from './moviesLayout.module.scss';
 
 export default function MoviesPageLayout (props: { children: ReactNode, link: string, page: string}) {
   const { children, link, page } = props;
   const dispatch = useAppDispatch();
-  const { isLoad, totalPages, movies, searchTitle } = useAppSelector((state) => state);
+  const { isLoad, totalPages, movies, user_grades } = useAppSelector((state) => state);
   const router = useRouter();
   const isMoviesPage = link === 'movies';
-  const currentEmptyState = isMoviesPage ? <SearchEmptyState /> : <RatedEmptyState />;
+  const isRatedMovies = !!Object.values(user_grades).length;
 
   useEffect(() => {
     dispatch(getGenres());
@@ -38,21 +35,9 @@ export default function MoviesPageLayout (props: { children: ReactNode, link: st
   return (
     <GeneralLayout>
       <Container size={'main-container'}>
-        <Flex 
-          classNames={{
-            root: isMoviesPage ? classes.movies__header : classes.rated__header
-          }}
-        >
-          <HideBox isShow={isMoviesPage}>
-            {children}
-            {!isLoad && !movies.length && currentEmptyState}
-          </HideBox>
-          <HideBox isShow={!isMoviesPage}>
-            {(isLoad || movies.length || searchTitle) ? children :  currentEmptyState}
-          </HideBox>
-        </Flex>
+        {children}
         {isLoad ? <Preloader /> : <MovieList />}
-        <HideBox isShow={(isLoad || !!movies.length)} >
+        <HideBox isShow={isMoviesPage ? (isLoad || !!movies.length) : (isRatedMovies && !!movies.length)} >
           <CustomPagination
             page={Number(page)} 
             link={link} 

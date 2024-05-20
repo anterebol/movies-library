@@ -7,7 +7,11 @@ import classes from './emptyState.module.scss';
 export const SearchEmptyState = () => {
   return (
     <Box className={classes.empty__state}>
-      <Image width={310} height={252} alt="empty_state" src={emptyState} />
+      <Image 
+        className={classes.empty__state__img}
+        alt="empty_state" 
+        src={emptyState} 
+      />
       <Text 
         className={classes.empty__state__text} 
         text={`We don't have such movies, look for another one`}  

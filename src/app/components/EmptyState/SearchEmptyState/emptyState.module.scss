@@ -6,7 +6,22 @@
   gap: 16px;
   margin-top: 25px;
 
+  &__img {
+    width: 310px;
+    height: 252px;
+
+    @media (max-width: 500px) {
+      width: 250px;
+      height: initial;
+      padding: 0;
+    }
+  }
+
   &__text {
     @include text(20px, 600, 24px);
+    @media (max-width: 500px) {
+      @include text(16px, 400, 18px);
+      text-align: center;
+    }
   }
 }

@@ -2,21 +2,22 @@
 import { useAppDispatch, useAppSelector } from "@/hooks/hooks";
 import MoviesPageLayout from "../components/MoviesPageLayout/MoviesPageLayout";
 import { getEstimatedMovies } from "@/store/appReducer";
-import { Suspense, useEffect, useState } from "react";
+import { Suspense, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
-import { Button, TextInput, Title } from "@mantine/core";
-import searchIcon from '@/assets/search.svg';
-import Image from "next/image";
+import { Flex, Title } from "@mantine/core";
+import { SearchRatedMovies } from "../components/SearchRatedMovies/SearchRatedMovies";
 import classes from './rated_movies.module.scss';
+import { SearchEmptyState } from "../components/EmptyState/SearchEmptyState/SearchEmptyState";
+import { RatedEmptyState } from "../components/EmptyState/RatedEmptyState/RatedEmptyState";
 
 function RatedMovies() {
   const dispatch = useAppDispatch();
   const searchParams = useSearchParams();
   const page = searchParams.get('page') || '1';
-  const { user_grades, searchTitle } = useAppSelector((state) => state);
-  const [searchString, setSearchString] = useState(searchTitle);
+  const { user_grades, searchTitle, isLoad, movies } = useAppSelector((state) => state);
+  const isRatedMovies = !!Object.values(user_grades).length;
 
-  const getMoviesLocalStorage = () => {
+  const getMoviesLocalStorage = (searchString = searchTitle) => {
     dispatch(getEstimatedMovies({searchString, page: Number(page)}))
   }
 
@@ -26,42 +27,15 @@ function RatedMovies() {
 
   return (
     <MoviesPageLayout page={page} link={"rated_movies"}>
-      <Title size={'mt'} title={"Rated movies"}>
-        Rated movies
-      </Title>
-      <TextInput
-        classNames={{
-          root: classes.search,
-          wrapper: classes.search__wrapper,
-          input: classes.search__input,
-        }}
-        value={searchString}
-        type="text"
-        onInput={(e: React.ChangeEvent<HTMLInputElement>) => {
-          setSearchString(e.target.value);
-        }}
-        leftSectionPointerEvents="none"
-        leftSection={
-          <Image 
-            width={16} 
-            height={16} 
-            src={searchIcon} 
-            alt="search_icon" 
-          />
-        }
-        rightSection={
-          <Button  
-            size="vb"
-            className={classes.search__button}
-            title="Saerch"
-            onClick={getMoviesLocalStorage}
-          >
-            Search
-          </Button>
-        }
-        rightSectionWidth={100}
-        placeholder="Search movie title"
-      />
+      {(isLoad || isRatedMovies) ? 
+        <Flex classNames={{root: classes.rated__header}}>
+          <Title size={'mt'} title={"Rated movies"}>
+            Rated movies
+          </Title>
+          <SearchRatedMovies onSearch={getMoviesLocalStorage} defaultValue={searchTitle} />
+        </Flex> : <RatedEmptyState />
+      }
+      {isRatedMovies && !isLoad && !movies.length && <SearchEmptyState />}
     </MoviesPageLayout>
   )
 }
