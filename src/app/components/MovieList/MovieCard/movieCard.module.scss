@@ -56,10 +56,8 @@
       width: 119px;
       height: 170px;
       .card__movie__img {
-        img {
-          width: 119px;
-          height: 170px;
-        }
+        width: 119px;
+        height: 170px;
       }
       @media (max-width: 500px) {
         border-radius: 8px;
@@ -79,7 +77,9 @@
         width: 119px;
         height: 170px;
         border-radius: 8px;
-        img {
+        .card__movie__img {
+          width: 119px;
+          height: 170px;
           border-radius: 8px;
         }
       }
