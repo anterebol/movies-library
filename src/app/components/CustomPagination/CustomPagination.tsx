@@ -1,25 +1,32 @@
-import { openPrevPage, openNextPage, setCurrentPage } from '@/store/appReducer';
 import { Flex } from '@mantine/core';
 import classes from './customPagination.module.scss';
-import { useAppDispatch, useAppSelector } from '@/hooks/hooks';
-import { useEffect, useMemo } from 'react';
+import { useAppSelector } from '@/hooks/hooks';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import Image from 'next/image';
 import { PaginationButton } from './PaginationButton/PaginationButton';
 import { setPagination } from '@/utils/setPagination';
-import leftArrow from '@/assets/pagination/left.svg';
-import rightArrow from '@/assets/pagination/right.svg';
+import { LeftArrow } from '@/assets/pagination/left';
 import { getPageLink } from '@/utils/getPageLink';
+import { CustomPaginationProps } from '@/types/paginationProps';
+import { RightArrow } from '@/assets/pagination/right';
 
-export const CustomPagination = (props: {page: number, link: string, position: string}) => {
+export const CustomPagination = (props: CustomPaginationProps) => {
   const { link, page, position } = props;
-  const dispatch = useAppDispatch();
   const router = useRouter();
-  const { totalPages, isNextPage, isPrevPage, currentPage } = useAppSelector((state) => state);
-  const prevPage = page > 1 ? page - 1 : 1;
-  const nextPage = (page < totalPages && page <= 499) ? page + 1 : totalPages - 2;
-  const prevSlicePage = page > 4 ? page - 3 : 1;
-  const nextSlicePage = nextPage;
+  const [leftHover, setLeftHover] = useState(false);
+  const [rightHover, setRightHover] = useState(false);
+  const { totalPages } = useAppSelector((state) => state);
+
+  useEffect(() => {
+    setLeftHover(false);
+    setRightHover(false)
+  }, [totalPages, page])
+
+  const leftButton = useCallback(() => LeftArrow(leftHover), [leftHover])
+  const rightButton = useCallback(() => RightArrow(rightHover), [rightHover])
+  
+  const prevPage = page - 1;
+  const nextPage =  page + 1;
 
   const paginationButtonClasses = (pageNumber: number) => ([
     classes.pagination__button, 
@@ -27,63 +34,41 @@ export const CustomPagination = (props: {page: number, link: string, position: s
     classes.pagination__button__active].join(' ')
   )
   
-  useEffect(() => {
-    if ((isNextPage && page > currentPage + 2) || (isPrevPage && page < currentPage)) {
-      dispatch(setCurrentPage(page))
-    } 
-  }, []);
+  const pagination = useMemo(() => setPagination(totalPages, page), 
+    [totalPages, page]);
 
-  const pagination = useMemo(() => setPagination(totalPages, currentPage), 
-    [totalPages, isNextPage, isPrevPage, page])
+  const setPage = (pageNumber: number) => router.push(getPageLink(link, pageNumber));
 
   return (
     <Flex gap={8} className={classes.pagination} style={{alignSelf: position}}>
-      {totalPages > 1 && <>
-        <PaginationButton
+      {totalPages > 1 && 
+        <>
+          <PaginationButton
             key={Math.random()}
             className={classes.pagination__button}
-            onClick={() => {
-              router.push(getPageLink(link, prevPage));
-              pagination[0] === page && dispatch(openPrevPage(prevSlicePage));
-            }}
-            paginationItem={
-              <Image 
-                height={16}
-                width={16}
-                alt='left_arow' 
-                src={leftArrow} 
-              />
-            }
+            onHover={setLeftHover}
+            onClick={() => setPage(prevPage)}
+            paginationItem={leftButton()}
             disabled={page < 2}      
-        />
-        {pagination.map((pageNumber) => 
-          <PaginationButton
-            key={Math.random() + pageNumber}
-            className={paginationButtonClasses(pageNumber)}
-            onClick={() => {
-              router.push(getPageLink(link, pageNumber));
-            } }
-            paginationItem={String(pageNumber)}     
           />
-        )}
-        <PaginationButton
-          key={Math.random()}
-          className={classes.pagination__button}
-          onClick={() => {
-            router.push(getPageLink(link, nextPage));
-            pagination[2] === page &&  dispatch(openNextPage(nextSlicePage));
-          }}
-          paginationItem={
-            <Image 
-              height={16}
-              width={16}
-              alt='right_arow' 
-              src={rightArrow} 
+          {pagination.map((pageNumber) => 
+            <PaginationButton
+              key={Math.random() + pageNumber}
+              className={paginationButtonClasses(pageNumber)}
+              onClick={() => setPage(pageNumber)}
+              paginationItem={String(pageNumber)}     
             />
-          }
-          disabled={page > 499 || page === totalPages}      
-        />
-      </>}
+          )}
+          <PaginationButton
+            key={Math.random()}
+            className={classes.pagination__button}
+            onHover={setRightHover}
+            onClick={() => setPage(nextPage)}
+            paginationItem={rightButton()}
+            disabled={page > 499 || page === totalPages}      
+          />
+        </>
+      }
       </Flex>
   )
 }

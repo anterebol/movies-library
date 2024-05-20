@@ -1,11 +1,17 @@
-import { KeyAsString } from "@/types/KeyAsString";
-
+export type SortType = {
+  [key: string]: any,
+  genres: Array<string>,
+  release_year: string,
+  rating_from: string,
+  rating_to: string, 
+  sort_by: string
+};
 const initialValues = {
-  genre: '',
+  genres: [],
   release_year: '',
   rating_from: '',
   rating_to: '', 
   sort_by: 'popularity.desc'
-} as KeyAsString;
+} as SortType;
 
 export default initialValues;

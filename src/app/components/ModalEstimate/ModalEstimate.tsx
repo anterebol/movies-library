@@ -28,10 +28,11 @@ export const ModalEstimate = () => {
       classNames={{
         root:  classes.modal,
         header: classes.modal__header,
+        content: classes.modal__content,
         body: classes.modal__body,
       }}
     >
-        <Modal.Overlay />
+        <Modal.Overlay opacity={'0.5'} />
         <Modal.Content>
           <Modal.Header>
             <Modal.Title>Your rating</Modal.Title>
@@ -40,17 +41,28 @@ export const ModalEstimate = () => {
             </button>
           </Modal.Header>
           <Modal.Body>
-            <Title className={classes.modal__body__title} tag="h2" title={original_title} />
+            <Title 
+              className={classes.modal__body__title} 
+              tag="h2" 
+              title={original_title} 
+            />
             <Rating 
               className={classes.modal__rating}
               defaultValue={user_grade} 
-              onChange={(grade) => {dispatch(setCurrentEstimage({user_grade: grade}))}}
+              classNames={{
+                root: classes.modal__rating,
+                label: classes.modal__label,
+                input: classes.modal__input
+              }}
+              onChange={(grade) => {
+                dispatch(setCurrentEstimage({user_grade: grade}))
+              }}
               count={10} 
               size={"lg"}  
             />
             <Flex direction={'row'} gap={16}>
               <Button 
-                size="md" 
+                size="vb" 
                 onClick={() => {setModalGrade('saveGrade')}}
                 classNames={{
                   root: classes.modal__save__button

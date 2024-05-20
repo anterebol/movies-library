@@ -1,18 +1,23 @@
 "use client"
 import { useAppDispatch, useAppSelector } from "@/hooks/hooks";
 import MoviesPageLayout from "../components/MoviesPageLayout/MoviesPageLayout";
-import { Title } from "../components/Title/Title";
 import { getEstimatedMovies } from "@/store/appReducer";
 import { Suspense, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
+import { Flex, Title } from "@mantine/core";
+import { SearchRatedMovies } from "../components/SearchRatedMovies/SearchRatedMovies";
+import classes from './rated_movies.module.scss';
+import { SearchEmptyState } from "../components/EmptyState/SearchEmptyState/SearchEmptyState";
+import { RatedEmptyState } from "../components/EmptyState/RatedEmptyState/RatedEmptyState";
 
 function RatedMovies() {
   const dispatch = useAppDispatch();
-  const searchParams = useSearchParams()
+  const searchParams = useSearchParams();
   const page = searchParams.get('page') || '1';
-  const { user_grades } = useAppSelector((state) => state);
+  const { user_grades, searchTitle, isLoad, movies } = useAppSelector((state) => state);
+  const isRatedMovies = !!Object.values(user_grades).length;
 
-  const getMoviesLocalStorage = (searchString = '') => {
+  const getMoviesLocalStorage = (searchString = searchTitle) => {
     dispatch(getEstimatedMovies({searchString, page: Number(page)}))
   }
 
@@ -22,7 +27,15 @@ function RatedMovies() {
 
   return (
     <MoviesPageLayout page={page} link={"rated_movies"}>
-      <Title title={"Rated movies"} className={''} tag={"h2"} />
+      {(isLoad || isRatedMovies) ? 
+        <Flex classNames={{root: classes.rated__header}}>
+          <Title size={'mt'} title={"Rated movies"}>
+            Rated movies
+          </Title>
+          <SearchRatedMovies onSearch={getMoviesLocalStorage} defaultValue={searchTitle} />
+        </Flex> : <RatedEmptyState />
+      }
+      {isRatedMovies && !isLoad && !movies.length && <SearchEmptyState />}
     </MoviesPageLayout>
   )
 }

@@ -1,32 +1,42 @@
-.select {
-  gap: 8px;
-  display: flex;
-  flex-direction: column;
-  &__wrapper {
-    width: 284px;
-    [data-position="right"] {
-      margin: 0px 10px;
-      display: flex;
-      align-items: center;
-    }
-  }
-  &__input {
-    height: 42px;
-    border: 1px solid rgb(213, 214, 220);
-    border-radius: 8px;
-    font-size: 14px;
-    padding: 8px 12px 8px 12px;
-    cursor: pointer;
+@import '../../../../styles/colors.scss';
+@import '../../../../styles/mixins.scss';
 
-    &::placeholder {
-      font-size: 14px;
-      font-weight: 400;
+.select {
+  &__option {
+    padding: 8px 12px 8px 12px;
+    border-radius: 8px; 
+    height: 36px;
+
+    &[data-combobox-active="true"] {
+      background: $purple-color;
+      color: $white-color;
+    }
+    
+    &:hover {
+      background: $light-pink-color;
+      color: $black-color;
     }
   }
-  &__label {
-    font-size: 16px;
-    font-weight: 700;
-    line-height: 140%;
-    letter-spacing: 0%;
+
+  &__options {
+    height: 224px;
+    overflow-y: scroll;
+
+    &::-webkit-scrollbar {
+      width: 4px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background: white;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      height: 24px;
+      background: rgb(172, 173, 185);
+    }
+
+    &::-webkit-scrollbar-thumb:hover {
+      background: rgb(172, 173, 185); 
+    }
   }
 }

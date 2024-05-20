@@ -1,21 +1,23 @@
 import { Button, Flex, Group } from "@mantine/core";
 import { useForm } from "@mantine/form";
-import { CustomSelect } from "./CustomSelect/CustomSelect";
 import classes from './formSorted.module.scss';
-import { FormEvent, useMemo } from "react";
-import { GenreType } from "@/types/genreType";
+import { useMemo } from "react";
 import { sortProps } from "@/constants/selectSortedProps";
 import { customizeGenres } from "@/utils/customizeGenres";
 import { CounterInput } from "./CounterInput/CounterInput";
 import { getRatingFromError, getRatingToError } from "@/utils/ratingValidation";
 import { useAppSelector } from "@/hooks/hooks";
-import { KeyAsString } from "@/types/KeyAsString";
 import initialValues from "@/constants/formSortedInitialValues";
+import { FormSortedProps } from "@/types/formSortedProps";
+import { getSelectYears } from "@/utils/getSelectYears";
+import { CustomSelect } from "./CustomSelect/CustomSelect";
+import { MultiSelect } from "./MultiSelect/MultiSelect";
 
-export default function FormSorted(props: {onChange: (apiProps: KeyAsString, isValid: boolean) => void, genres: Array<GenreType>}) {
+export default function FormSorted(props: FormSortedProps) {
   const { searchFormValues } = useAppSelector((state) => state);
   const { onChange } = props;
   const genres = useMemo(() => customizeGenres(props.genres), [props.genres]);
+  const yearsData = useMemo(() => getSelectYears(), []);
 
   const form = useForm({
     mode: 'uncontrolled',
@@ -25,7 +27,7 @@ export default function FormSorted(props: {onChange: (apiProps: KeyAsString, isV
       form.validate();
       const formValues = form.getValues();
       const formState = {
-        genre: formValues.genre,
+        genres: formValues.genres,
         release_year: formValues.release_year,
         rating_from: formValues.rating_from,
         rating_to: formValues.rating_to, 
@@ -38,6 +40,26 @@ export default function FormSorted(props: {onChange: (apiProps: KeyAsString, isV
       rating_to: (value, values) => getRatingToError(Number(value), Number(values.rating_from)),
     },
   });
+
+  const isFormEmpty = () => {
+    return Object.entries(searchFormValues).every(([key, value]) => {
+      if (key === 'genres') {
+        if (!value.length) {
+          return true;
+        }
+        return false;
+      } else if (key === 'sort_by') {
+        if (value === 'popularity.desc') {
+          return true;
+        }
+        return false;
+      } else if (!value) {
+        return true;
+      }
+      return false;
+    })
+  }
+  
   const setFormRating = (type: string, operation?: string) => {
     const allFormValues = form.getValues();
     let currentNumber = Number(allFormValues[type] || 0);
@@ -55,23 +77,21 @@ export default function FormSorted(props: {onChange: (apiProps: KeyAsString, isV
   }
 
   return <Flex className={classes.formSort} wrap={'wrap'}>
-    <CustomSelect 
-      selectKey={form.key('genre') || undefined} 
-      inputProps={form.getInputProps('genre')} 
-      data={genres}
-      label="Genres"
-      defaultValue={searchFormValues.genre}
-      placeholder="Select genre"
+    <MultiSelect 
+      data={genres} 
+      placeholder={"Select genre"} 
+      label={"Genres"} 
+      onChange={(value: Array<string>) => form.setFieldValue('genres', value)} 
+      defaultValue={searchFormValues.genres}
     />
     <CustomSelect 
-      selectKey={form.key('release_year') || undefined} 
-      inputProps={form.getInputProps('release_year')} 
-      data={[{ value: '1922', label: '1922' }]}
+      data={yearsData}
       defaultValue={searchFormValues.release_year}
       label="Release year"
       placeholder="Select release year"
+      onChange={(val: string) => form.setFieldValue('release_year', val)}
     />
-    <Group gap={8} align="last baseline">  
+    <Group gap={8} align="last baseline" justify="center">  
       <CounterInput 
         selectKey={form.key('rating_from')}
         inputProps={form.getInputProps('rating_from')} 
@@ -90,16 +110,20 @@ export default function FormSorted(props: {onChange: (apiProps: KeyAsString, isV
         onSubClick={() => { setFormRating('rating_to') }}
       />
     </Group>
-    <Button className={classes.formSort__button} onClick={resetForm} >
+    <Button 
+      className={classes.formSort__reset__button} 
+      onClick={resetForm} 
+      title="Reset form"
+      disabled={isFormEmpty()}
+    >
       Reset filters
     </Button>
-    <CustomSelect 
-      selectKey={form.key('sort_by') || undefined} 
-      inputProps={form.getInputProps('sort_by')} 
+    <CustomSelect
       data={sortProps}
       label="Sort by"
       defaultValue={searchFormValues.sort_by}
       placeholder="Choose sort properties"
+      onChange={(val: string) => form.setFieldValue('sort_by', val)}
     />
   </Flex>
 }

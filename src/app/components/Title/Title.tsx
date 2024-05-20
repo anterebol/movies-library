@@ -1,10 +1,5 @@
+import { TextProps } from "@/types/textProps";
 import { createElement } from "react";
-
-interface TextProps {
-	title: string | boolean;
-	className: string;
-	tag: string;
-}
 
 export const Title: React.FC<TextProps> = (props) => {
 	const { title, className, tag,} = props;

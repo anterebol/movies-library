@@ -1,12 +1,19 @@
-import { ReactNode } from "react";
+import { PaginationButtonProps } from "@/types/paginationProps";
 
-export const PaginationButton = (props: {className: string, disabled?: boolean, onClick: () => void, paginationItem: string | ReactNode }) => {
+export const PaginationButton = (props: PaginationButtonProps) => {
   const {className, disabled, onClick, paginationItem} = props;
-  return <button 
-    disabled={disabled} 
-    className={className} 
-    key={Math.random()} 
-    onClick={onClick}>
-    {paginationItem}
-  </button>
+  const onHover = props.onHover || function() {}
+
+  return (
+    <button 
+      disabled={disabled} 
+      className={className} 
+      key={Math.random()} 
+      onClick={onClick}
+      onMouseEnter={() => onHover(true)}
+      onMouseLeave={() => onHover(false)}
+    >
+      {paginationItem}
+    </button>
+  )
 }

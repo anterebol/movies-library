@@ -2,14 +2,22 @@
 @import '../../../styles/colors.scss';
 
 .modal {
-  border-radius: 8px;
-
+  &__content {
+    width: 100%;
+    max-width: 380px;
+    height: 208px;
+    @media (max-width: 400px) {
+      max-width: 300px;
+      height: initial;
+    }
+  }
   &__header {
     @include flex(row, space-between, center);
+    @include text(16px, 400, 140%);
+    min-height: 54px;
     padding: 16px;
     padding-right: 11px;
-    line-height: 140%;
-    border-bottom: 1px solid rgb(234, 235, 237);
+    border-bottom: 1px solid $disabled-grey-color;
     font-size: 16px;
   }
   &__close__button {
@@ -17,41 +25,39 @@
     cursor: pointer;
   }
   &__body {
-    padding: 16px;
+    padding-top: 16px;
     @include flex(column, stretch);
     gap: 16px;
+    height: 154px;
 
     &__title {
-      color: $black-color;
-      font-weight: 700;
-      line-height: 140%;
+      @include text(16px, 700, 140%);
     }
   }
 
   &__rating {
-    width: 100%;
+    width: 348px;
     @include flex(row, space-between);
-  }
-  &__save__button {
-    border-radius: 8px;
-    background: $purple-color;
-    padding: 10px 20px 10px 20px;
-    color: white;
-    height: 42px;
-    width: 80px;
-    font-size: 14px;
-    font-weight: 700;
-    &:hover {
-      background: $purple-color;
-      opacity: .8;
+    @media (max-width: 400px) {
+      width: 100%;
+      & > div {
+        width: 25px;
+        height: 25px
+      }
+      
     }
   }
+  &__save__button {
+    @include text(14px, 700, 100%, $white-color);
+    padding: 10px 20px 10px 20px;
+    height: 40px;
+    width: 74px;
+  }
   &__remove__button {
+    @include text(14px, 600, 100%, $purple-color);
     background: none;
     padding: 5px 0px;
-    color: $purple-color;
-    font-size: 14px;
-    font-weight: 600;
+
     &:hover {
       background: none;
       color: $purple-color;

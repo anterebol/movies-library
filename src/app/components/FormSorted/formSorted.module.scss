@@ -1,22 +1,40 @@
 @import '../../../styles/colors.scss';
+@import '../../../styles/mixins.scss';
 
 .formSort {
+  width: 100%;
   justify-content: right;
   align-items: last baseline;
   padding: 0;
   margin: 0;
   gap: 24px 16px;
+  @media (max-width: 1300px) {
+    justify-content: center;
+    @media (max-width: 600px) {
+      text-align: center;
+    }
+  }
 
-  &__button {
+  &__reset__button {
+    @include text(14px, 500, 20px, $purple-color);
     background: none;
-    color: $grey-color;
     padding: 0;
     height: 42px;
-    width: 80px;
-    transition: .4s;
+    width: 81px;
     &:hover {
-      color: $grey-color;
+      color: $light-purple-color;
       background: none;
+    }
+    &:active {
+      color: $dark-purple-color;
+      background: none;
+    }
+    &:disabled {
+      color: $grey-color;
+    }
+    @media (max-width: 1300px) {
+      order: 5;
+      // width: 200px;
     }
   }
 }

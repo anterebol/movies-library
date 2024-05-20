@@ -6,7 +6,7 @@ import { Title } from "../Title/Title";
 
 export const Logo = () => (
   <Group wrap="nowrap" gap={12} className={classes.logo}>
-    <Image width={32} height={32} src={logo} alt="logo_img" />
+    <Image className={classes.logo__img} src={logo} alt="logo_img" />
     <Title tag="h1" className={classes.logo__title} title="ArrowFlicks" />
   </Group>
 )

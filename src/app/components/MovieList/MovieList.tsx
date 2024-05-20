@@ -4,8 +4,7 @@ import { useMemo } from "react";
 import { getPosterSize } from "@/utils/getPosterSize";
 import { useAppSelector } from "@/hooks/hooks";
 import Link from "next/link";
-export interface GenreProps {id: string, name: string};
-export interface UserGradeProps { id: number, user_grade: string };
+import classes from './movieList.module.scss';
 const moviesPosterSize = 119;
 
 export const MovieList = () => {
@@ -13,7 +12,9 @@ export const MovieList = () => {
   const posterSize = useMemo(() => getPosterSize(postersConfig.images.poster_sizes, moviesPosterSize), [postersConfig.images.poster_sizes]);
 
   return (
-    <Group justify="space-between">
+    <Group classNames={{
+      root: classes.movie__list
+    }}>
       {movies.map((movie) => {
         const { id } = movie;
         return (

@@ -1,9 +1,8 @@
 import { MovieProps } from '@/types/movieType';
 import { getStorageItem, setStorageItem } from '@/utils/localStorage';
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
-import { getGenres, getMovie, getMovies, getPosterConfig, getTrailer } from './api/api';
+import { getGenres, getMovies, getPosterConfig } from './api/api';
 import initialValues from '@/constants/formSortedInitialValues';
-import { KeyAsString } from '@/types/KeyAsString';
 
 const emtyGrade = {id: '', user_grade: 0, original_title: ''};
 const initialState = {
@@ -14,10 +13,8 @@ const initialState = {
   movies: [] as MovieProps[],
   totalPages: 500,
   genres: [{id: '', name: ''}],
-  isNextPage: true,
-  isPrevPage: true,
-  currentPage: 1,
   movie: { trailer: '' },
+  searchTitle: '',
   searchFormValues: initialValues,
   postersConfig: {images: { poster_sizes: [] }},
 };
@@ -27,7 +24,7 @@ const appSlice = createSlice({
   initialState: { ...initialState },
   reducers: {
     setFormValues: (state, action) => {
-      state.searchFormValues = action.payload as KeyAsString;
+      state.searchFormValues = action.payload;
     },
     openEstimateModal: (state, action) => {
       state.isOpenModal = true;
@@ -42,21 +39,6 @@ const appSlice = createSlice({
       const currentEstimate = {...state.currentEstimateItem, user_grade}
       state.currentEstimateItem = currentEstimate;
     },
-    setCurrentPage: (state, action) => {
-      state.currentPage = action.payload;
-      state.isNextPage = false;
-      state.isPrevPage = false;
-    },
-    openNextPage: (state, action) => {
-      state.currentPage = action.payload
-      state.isNextPage = true;
-      state.isPrevPage = false;
-    },
-    openPrevPage: (state, action) => {
-      state.currentPage = action.payload
-      state.isNextPage = false;
-      state.isPrevPage = true;
-    },
     getEstimatedMovies: (state, action) => {
       state.isLoad = true;
       const { page, searchString } = action.payload;
@@ -64,8 +46,9 @@ const appSlice = createSlice({
       const lastMovieIndex = firstMovieIndex + 4;
       const allMovies = Object.values(state.user_grades) as MovieProps[];
       const filteredMovies = allMovies.filter(({original_title}) => original_title.toUpperCase().includes(searchString.toUpperCase()));
+      state.searchTitle = searchString;
       state.movies = filteredMovies.slice(firstMovieIndex, lastMovieIndex);
-      state.totalPages = Math.ceil(allMovies.length / 4) || 1;
+      state.totalPages = Math.ceil(filteredMovies.length / 4) || 1;
       state.isLoad = false;
     },
     setUserGrade: (state, action) => {
@@ -110,5 +93,5 @@ const appSlice = createSlice({
     });
   },
 });
-export const { openEstimateModal, setUserGrade, closeEstimateModal, setCurrentEstimage, openNextPage, openPrevPage, setCurrentPage, setFormValues, getEstimatedMovies } = appSlice.actions;
+export const { openEstimateModal, setUserGrade, closeEstimateModal, setCurrentEstimage, setFormValues, getEstimatedMovies } = appSlice.actions;
 export default appSlice.reducer;

@@ -1,0 +1,19 @@
+@import '../../../styles/mixins.scss';
+
+.movie {
+
+  &__box {
+    @include flex(column, center);
+    height: inherit;
+    gap: 20px;
+  }
+
+  &__title {
+    @include flex(row, stretch, center);
+    gap: 10px;
+    @media (max-width: 900px) {
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+  }
+}

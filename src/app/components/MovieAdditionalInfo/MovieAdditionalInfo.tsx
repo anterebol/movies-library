@@ -1,15 +1,12 @@
-import { Box, Card, Flex, Group, Image } from "@mantine/core";
+import { Box, Card, Flex } from "@mantine/core";
 import { Title } from "../Title/Title";
 import classes from './movieAdditionalInfo.module.scss';
-import { ProductionCompany } from "@/types/movieType";
 import YouTube from "react-youtube";
 import { Text } from "../Text/Text";
-interface MovieAdditionalInfoProps {
-  trailerKey: string, 
-  movieDescription: string, 
-  productionCompanys: Array<ProductionCompany>, 
-  logoSize: string
-}
+import { MovieAdditionalInfoProps } from "@/types/movieAdditionalProps";
+import noneVideo from '@/assets/none-video.svg';
+import Image from "next/image";
+
 
 export const MovieAdditionalInfo = (props: MovieAdditionalInfoProps) => {
   const {trailerKey, movieDescription, productionCompanys, logoSize} = props;
@@ -19,7 +16,6 @@ export const MovieAdditionalInfo = (props: MovieAdditionalInfoProps) => {
       padding={24} 
       radius={12} 
       className={classes.additional__info} 
-      w={'100%'}
     >
       <Flex direction={'column'} gap={20} >
         <Flex direction={'column'} gap={16} >
@@ -28,7 +24,17 @@ export const MovieAdditionalInfo = (props: MovieAdditionalInfoProps) => {
             title={'Trailer'} 
             tag="h3" 
           />
-          <YouTube videoId={trailerKey} className={classes.additional__info__trailer} />
+          <Box className={classes.additional__info__trailer}>
+            {trailerKey ? 
+              <YouTube videoId={trailerKey} /> :
+              <Image 
+                width={50} 
+                height={50} 
+                alt="none_video" 
+                src={noneVideo} 
+              />
+            }
+          </Box>
         </Flex>
         <Flex 
           direction={'column'} 
@@ -59,12 +65,15 @@ export const MovieAdditionalInfo = (props: MovieAdditionalInfoProps) => {
               gap={8}
               h={40}
             >
-              <Box className={classes.additional__info__logo}>
-                <Box 
-                  className={classes.additional__info__logo__img} 
-                  bg={`url(https://image.tmdb.org/t/p/${logoSize}${logo_path}) center center / contain no-repeat`} 
-                />
-              </Box>
+              {logo_path && 
+                <Box className={classes.additional__info__logo}>
+                  <Box 
+                    className={classes.additional__info__logo__img} 
+                    bg={`url(https://image.tmdb.org/t/p/${logoSize}${logo_path}) 
+                    center center / contain no-repeat`} 
+                  />
+                </Box>
+              }
               <Text className={classes.additional__info__logo__text} text={name} />
             </Flex>
           )}

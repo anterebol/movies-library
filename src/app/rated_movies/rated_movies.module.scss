@@ -1,0 +1,10 @@
+@import '../../styles/mixins.scss';
+.rated__header {
+  @include flex(row, space-between, center);
+  flex-wrap: wrap;
+  margin-bottom: 16px;
+  gap: 16px;
+  @media (max-width: 600px) {
+    justify-content: center;
+  }
+}

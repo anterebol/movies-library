@@ -9,16 +9,30 @@
   left: 50%;
   transform: translate(-50%, -50%);
 
+  &__img {
+    width: 400px;
+    height: 300px;
+    @media (max-width: 500px) {
+      width: 250px;
+      height: 180px;
+    }
+  }
+
   &__text {
     @include text(20px, 600, 24px);
+    @media (max-width: 500px) {
+      @include text(16px, 400, 20px);
+    }
   }
   &__button {
-    background: $purple-color;
     padding: 10px 20px 10px 20px;
-    border-radius: 8px;
-    &:hover {
-      background: $purple-color;
-      opacity: .7;
+    width: 122px;
+    height: 40px;
+
+    @media (max-width: 500px) {
+      padding: 5px 10px 5px 10px;
+      width: 100px;
+      height: 30px;
     }
   }
 }

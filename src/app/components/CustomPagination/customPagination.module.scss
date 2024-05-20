@@ -4,6 +4,11 @@
 .pagination {
   align-self: flex-end;
 
+  @media (max-width: 1300px) {
+    justify-content: center;
+    width: 100%;
+  }
+
   &__button {
     @include flex(row, center, center);
     width: 32px;
@@ -13,6 +18,7 @@
     border-radius: 4px;
     color: $black-color;
     cursor: pointer;
+    background: $white-color;
     padding: 0px 8px 0px 8px;
 
     &:hover {
@@ -20,19 +26,24 @@
       color: $white-color;
       opacity: .7;
     }
+    &:active {
+      background: $dark-purple-color;
+      opacity: 1;
+    }
     
     &:disabled {
       border: 1px solid $disabled-grey-color;
       cursor: default;
+      background: $white-color;
       &:hover {
         opacity: 1;
-        background: transparent;
+        background: $white-color;
         img {
-          opacity: .6;
+          opacity: .5;
         }
       }
-      img {
-        opacity: .6;
+      svg {
+        opacity: .5;
       }
     }
 

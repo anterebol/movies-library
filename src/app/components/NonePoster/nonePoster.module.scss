@@ -2,9 +2,10 @@
 @import '../../../styles/colors.scss';
 .none__poster {
   @include flex(column, center, center);
-  border: 1px solid rgb(245, 245, 246);
+  border: 1px solid $white-grey-color;
   gap: 4px;
-  background: rgb(234, 235, 237);
+  border: 1px solid rgb(245, 245, 246);
+  background: $disabled-grey-color;
 
   &__image {
     margin: 4px 0;
@@ -12,9 +13,6 @@
   }
 
   &__text {
-    color: rgb(172, 173, 185);
-    font-size: 12px;
-    font-weight: 500;
-    line-height: 16px;
+    @include text(12px, 500, 16px, $grey-no-poster-color);
   }
 }

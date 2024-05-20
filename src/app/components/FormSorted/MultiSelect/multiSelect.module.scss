@@ -1,0 +1,63 @@
+@import '../../../../styles/colors.scss';
+@import '../../../../styles/mixins.scss';
+
+.select {
+  &__opened {
+    border: 1px solid $purple-color;
+    border-radius: 8px;
+  }
+  &__group {
+    @include text-overflow(240px, 100%, 1);
+    gap: 5px;
+  }
+  &__pill {
+    background: none;
+    padding: 0;
+    margin: 0;
+    padding-right: 5px;
+    span {
+      @include text(14px, 400, 20px, $black-color);
+      @media (max-width: 600px) {
+        // @include text(12px, 400, 20px, $black-color);
+      }
+    }
+  }
+
+  &__option {
+    padding: 8px 12px 8px 12px;
+    border-radius: 8px; 
+    height: 36px;
+
+    &[data-combobox-active="true"] {
+      background: $purple-color;
+      color: $white-color;
+    }
+
+    &:hover {
+      background: $light-pink-color;
+      color: $black-color;
+    }
+  }
+
+  &__options {
+    height: 224px;
+    overflow-y: scroll;
+
+    &::-webkit-scrollbar {
+      width: 4px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background: white;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      height: 24px;
+      background: rgb(172, 173, 185);
+    }
+
+    &::-webkit-scrollbar-thumb:hover {
+      background: rgb(172, 173, 185); 
+    }
+  }
+}

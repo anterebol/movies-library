@@ -1,13 +1,85 @@
 @import '../../../styles/mixins.scss';
 @import '../../../styles/colors.scss';
 
+.side__bar {
+  &__burger {
+    position: fixed;
+    left: 5px;
+    top: 10px;
+    background: $purple-color;
+    border-radius: 8px;
+    padding: 5px;
+    visibility: hidden;
+    opacity: 0;
+    &:hover {
+      background: $purple-color;
+      opacity: .7;
+    }
+    &:active {
+      background: $dark-purple-color;
+    }
+    @media (max-width: 1150px) {
+      visibility: visible;
+      opacity: 1;
+      z-index: 2;
+      @media (max-width: 500px) {
+        height: 30px;
+        padding: 0 2px;
+      }
+    }
+  }
+}
+.navbar__close__burger {
+    position: absolute;
+    padding: 5px;
+    visibility: hidden;
+    opacity: 0;
+    left: initial;
+    right: 5px;
+    top: 5px;
+    background: none;
+    &:hover {
+      background: none;
+      opacity: .7;
+    }
+    &:active {
+      background: none;
+    }
+    @media (max-width: 1150px) {
+      visibility: visible;
+      opacity: 1;
+      z-index: 2;
+    }
+}
+.left__emty__box {
+  display: none;
+  width: 50px;
+  min-width: 40px;
+  left: 0;
+  position: relative;
+  background: $white-purple-color;
+  @media (max-width: 1150px) {
+    display: block;
+    min-height: 100vh;
+  }
+}
+
 .navbar {
   @include flex(column);
   width: 280px;
   min-height: 100vh;
   padding: 24px;
   gap: 80px;
+  box-sizing: border-box;
   background: $white-purple-color;
+  transition: ease .5;
+
+  @media (max-width: 1150px) {
+    position: fixed;
+    left: -280px;
+    z-index: 111;
+    transition: ease 1s;
+  }
 
   &__list {
     @include flex(column);
@@ -15,12 +87,10 @@
   }
   &__link {
     @include flex(row, flex-start, center);
-    font-size: 16px;
-    line-height: 140%;
+    @include text(16px, 400, 140%, $black-color);
     border-radius: 8px;
     padding: 10px;
     width: 100%;
-    color: $black-color;
     &:hover {
       background: $purple-light-color;
       color: $purple-color;
@@ -34,5 +104,12 @@
       }
     }
   }
-  
 }
+.navbar__opened {
+  @media (max-width: 1150px) {
+    transition: ease 1s;
+    left: 0;
+  }
+}
+
+
