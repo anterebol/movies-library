@@ -55,6 +55,12 @@
     &__img__small {
       width: 119px;
       height: 170px;
+      .card__movie__img {
+        img {
+          width: 119px;
+          height: 170px;
+        }
+      }
       @media (max-width: 500px) {
         border-radius: 8px;
         img {
@@ -65,6 +71,10 @@
     &__img__big {
       width: 250px;
       height: 352px;
+      .card__movie__img {
+        width: 250px;
+        height: 352px;
+      }
       @media (max-width: 500px) {
         width: 119px;
         height: 170px;
@@ -122,7 +132,6 @@
         @include text(16px, 600, 16px, $purple-color);
         @media (max-width: 500px) {
           margin: 0 auto;
-          // font-size: 14px;
         }
       }
     }

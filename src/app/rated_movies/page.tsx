@@ -35,7 +35,15 @@ function RatedMovies() {
           <SearchRatedMovies onSearch={getMoviesLocalStorage} defaultValue={searchTitle} />
         </Flex> : <RatedEmptyState />
       }
-      {isRatedMovies && !isLoad && !movies.length && <SearchEmptyState />}
+      {isRatedMovies && !isLoad && !movies.length && 
+        <Flex 
+          h={'80%'} 
+          align={'center'} 
+          justify={'center'}
+        >
+          <SearchEmptyState />
+        </Flex>
+      }
     </MoviesPageLayout>
   )
 }

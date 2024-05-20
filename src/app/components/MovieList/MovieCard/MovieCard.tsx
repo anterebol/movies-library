@@ -84,8 +84,7 @@ export const MovieCard = (props: MovieCardProps) => {
           <Preloader /> : 
           poster_path ? 
             <Image 
-              w={'100%'} 
-              h={'100%'} 
+              className={classes.card__movie__img}
               src={`https://image.tmdb.org/t/p/${posterSize}${poster_path}`} 
               alt={`${original_title}_poster`} 
             /> : 
@@ -107,7 +106,7 @@ export const MovieCard = (props: MovieCardProps) => {
               defaultValue={1} 
               readOnly
             />
-            <Text className={classes.card__movie__rating__grade} text={vote_average} />
+            <Text className={classes.card__movie__rating__grade} text={Math.round(vote_average * 10) / 10} />
             <Text className={classes.card__movie__rating__votes} text={`(${setStringVotes(vote_count)})`} />
           </Box>
         </Flex>
