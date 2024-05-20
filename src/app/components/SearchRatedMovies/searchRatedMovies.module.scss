@@ -31,8 +31,10 @@
     }
 
     [data-position="left"] {
-      width: 12px;
-      left: 8px;
+      @media (max-width: 500px) {
+        width: 12px;
+        left: 8px;
+      }
     }
   }
 
@@ -63,7 +65,7 @@
     @include text(14px, 600, 140%, $white-color);
     letter-spacing: 0%;
     padding: 6px 20px 6px 20px;
-    width: 89px;
+    width: 88px;
     height: 32px;
     @media (max-width: 1300px) {
       @include text(14px, 400, 100%, $white-color);
