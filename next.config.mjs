@@ -1,5 +1,6 @@
 /** @type {import('next').NextConfig} */
 const host = process.env.NEXT_PUBLIC_API_URL;
+const imgUrl = process.env.NEXT_PUBLIC_IMG_URL;
 const nextConfig = {
   async redirects() {
     return [
@@ -31,6 +32,10 @@ const nextConfig = {
       {
         source: '/trailer/:id',
         destination: `${host}/movie/:id/videos?language=en-US`
+      },
+      {
+        source: '/movie_img/:size/:params',
+        destination: `${imgUrl}:size/:params`
       },
     ];
   }

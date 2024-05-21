@@ -36,7 +36,7 @@ export const getPosterConfig = createAsyncThunk(
 export const getMovie = createAsyncThunk(
   GET_MOVIE,
   async (id: string, { rejectWithValue }) => {
-    return api.get(`/${GET_MOVIE_PATH}/${id}`)
+    return api.get(GET_MOVIE_PATH + id)
       .then((res) => res.data)
       .catch((rej) => rejectWithValue(rej));
   }
@@ -44,9 +44,19 @@ export const getMovie = createAsyncThunk(
 
 export const getTrailer = createAsyncThunk(
   GET_VIDEO_TRAILER,
-  async (id: string,{ rejectWithValue }) => {
-    return api.get(`/${GET_TRAILER_PATH}/${id}`)
+  async (id: string, { rejectWithValue }) => {
+    return api.get(GET_TRAILER_PATH + id)
       .then((res) => res.data)
       .catch((rej) => rejectWithValue(rej));
   }
 );
+
+export const getPoster = async (url: string) => {
+  try {
+    const data = await fetch(url);
+    const blob = await data.blob();
+    return URL.createObjectURL(blob);
+  } catch (err: unknown) {
+    throw new Error(err as string);
+  }
+}
