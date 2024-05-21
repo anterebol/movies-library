@@ -15,6 +15,8 @@ import { MovieCardProps } from "@/types/movieCardProps";
 import { GenreType } from "@/types/genreType";
 import { Preloader } from "../../Preloader/Preloader";
 import { setStringVotes } from "@/utils/setStringVotes";
+import { getPoster } from "@/store/api/api";
+import { GET_POSTER_PATH } from "@/constants/apiPathes";
 
 export const MovieCard = (props: MovieCardProps) => {
   const { movie, posterSize, allGenres, user_grade, isFullCard } = props
@@ -33,11 +35,19 @@ export const MovieCard = (props: MovieCardProps) => {
 
   const dispatch = useAppDispatch();
   const [isLoad, setIsLoad] = useState(!!poster_path);
+  const [poster, setPoster] = useState('');
 
   useEffect(() => {
-    const img = document.createElement('img');
-    img.setAttribute('src', `https://image.tmdb.org/t/p/${posterSize}${poster_path}`);
-    img.onload = () => setIsLoad(false);
+    if (poster_path) {
+      const img = document.createElement('img');
+      const url = GET_POSTER_PATH + posterSize + poster_path;
+    
+      getPoster(url).then((src) => {
+        img.setAttribute('src', src);
+        img.onload = () => setIsLoad(false);
+        setPoster(src);
+      });
+    }
   }, [poster_path, posterSize])
 
   const setMovieGrade = (e: {stopPropagation: () => void}) => {
@@ -82,10 +92,10 @@ export const MovieCard = (props: MovieCardProps) => {
       <Box className={imgClassName} >
         {isLoad ? 
           <Preloader /> : 
-          poster_path ? 
+          poster ? 
             <Image 
               className={classes.card__movie__img}
-              src={`https://image.tmdb.org/t/p/${posterSize}${poster_path}`} 
+              src={poster} 
               alt={`${original_title}_poster`} 
             /> : 
             <NonePoster width={posterSizes.width} height={posterSizes.height} />

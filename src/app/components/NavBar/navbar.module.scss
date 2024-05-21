@@ -4,7 +4,7 @@
 .side__bar {
   &__burger {
     position: fixed;
-    left: 5px;
+    left: 6.5px;
     top: 10px;
     background: $purple-color;
     border-radius: 8px;
@@ -25,6 +25,7 @@
       @media (max-width: 500px) {
         height: 30px;
         padding: 0 2px;
+        left: 8px;
       }
     }
   }
