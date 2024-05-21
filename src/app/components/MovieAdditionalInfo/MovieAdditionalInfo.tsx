@@ -6,7 +6,7 @@ import { Text } from "../Text/Text";
 import { MovieAdditionalInfoProps } from "@/types/movieAdditionalProps";
 import noneVideo from '@/assets/none-video.svg';
 import Image from "next/image";
-
+import { ProductionCompany } from "./ProductionCompany/ProductionCompany";
 
 export const MovieAdditionalInfo = (props: MovieAdditionalInfoProps) => {
   const {trailerKey, movieDescription, productionCompanys, logoSize} = props;
@@ -58,24 +58,13 @@ export const MovieAdditionalInfo = (props: MovieAdditionalInfoProps) => {
             title={'Production'} 
             tag="h3" 
           />
-          {productionCompanys.map(({name, logo_path}) => 
-            <Flex 
-              key={name + logo_path} 
-              align={'center'} 
-              gap={8}
-              h={40}
-            >
-              {logo_path && 
-                <Box className={classes.additional__info__logo}>
-                  <Box 
-                    className={classes.additional__info__logo__img} 
-                    bg={`url(https://image.tmdb.org/t/p/${logoSize}${logo_path}) 
-                    center center / contain no-repeat`} 
-                  />
-                </Box>
-              }
-              <Text className={classes.additional__info__logo__text} text={name} />
-            </Flex>
+          {productionCompanys.map(({name, logo_path}) => (
+            <ProductionCompany 
+              key={name + logo_path}
+              logoSize={logoSize} 
+              name={name} 
+              logo_path={logo_path} 
+            />)
           )}
         </Flex>
       </Flex>
