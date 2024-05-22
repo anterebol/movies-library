@@ -36,7 +36,7 @@ export const MovieAdditionalInfo = (props: MovieAdditionalInfoProps) => {
             }
           </Box>
         </Flex>
-        <Flex 
+        {movieDescription && <Flex 
           direction={'column'} 
           gap={16} 
           className={classes.additional__info__description}
@@ -47,26 +47,28 @@ export const MovieAdditionalInfo = (props: MovieAdditionalInfoProps) => {
             tag="h3"
           />
           <Text text={movieDescription} />
-        </Flex>
+        </Flex>}
+        {!!productionCompanys.length &&
         <Flex 
-          direction={'column'} 
-          align={'start'} 
-          gap={16}
-        >
-          <Title 
-            className={classes.additional__info__title} 
-            title={'Production'} 
-            tag="h3" 
-          />
-          {productionCompanys.map(({name, logo_path}) => (
-            <ProductionCompany 
-              key={name + logo_path}
-              logoSize={logoSize} 
-              name={name} 
-              logo_path={logo_path} 
-            />)
-          )}
-        </Flex>
+        direction={'column'} 
+        align={'start'} 
+        gap={16}>
+        <Title 
+          className={classes.additional__info__title} 
+          title={'Production'} 
+          tag="h3" 
+        />
+        {productionCompanys.map(({name, logo_path}) => (
+          <ProductionCompany 
+            key={name + logo_path}
+            logoSize={logoSize} 
+            name={name} 
+            logo_path={logo_path} 
+          />)
+        )}
+      </Flex>
+          
+        }
       </Flex>
     </Card>
   )

@@ -1,4 +1,4 @@
-import { MovieProps } from '@/types/movieType';
+import { MovieGradedProps, MovieProps } from '@/types/movieType';
 import { getStorageItem, setStorageItem } from '@/utils/localStorage';
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { getGenres, getMovies, getPosterConfig } from './api/api';
@@ -44,8 +44,8 @@ const appSlice = createSlice({
       const { page, searchString } = action.payload;
       const firstMovieIndex = (page - 1) * 4;
       const lastMovieIndex = firstMovieIndex + 4;
-      const allMovies = Object.values(state.user_grades) as MovieProps[];
-      const filteredMovies = allMovies.filter(({original_title}) => original_title.toUpperCase().includes(searchString.toUpperCase()));
+      const allMovies = Object.values(state.user_grades) as MovieGradedProps[];
+      const filteredMovies = allMovies.filter(({original_title, user_grade}) => original_title.toUpperCase().includes(searchString.toUpperCase()) && user_grade);
       state.searchTitle = searchString;
       state.movies = filteredMovies.slice(firstMovieIndex, lastMovieIndex);
       state.totalPages = Math.ceil(filteredMovies.length / 4) || 1;
@@ -93,5 +93,12 @@ const appSlice = createSlice({
     });
   },
 });
-export const { openEstimateModal, setUserGrade, closeEstimateModal, setCurrentEstimage, setFormValues, getEstimatedMovies } = appSlice.actions;
+export const { 
+  openEstimateModal, 
+  setUserGrade, 
+  closeEstimateModal, 
+  setCurrentEstimage, 
+  setFormValues, 
+  getEstimatedMovies 
+} = appSlice.actions;
 export default appSlice.reducer;

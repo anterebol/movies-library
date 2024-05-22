@@ -48,11 +48,11 @@ export const MovieCard = (props: MovieCardProps) => {
         setPoster(src);
       });
     }
-  }, [poster_path, posterSize])
+  }, [poster_path, posterSize]);
 
   const setMovieGrade = (e: {stopPropagation: () => void}) => {
-    e.stopPropagation();
     dispatch(openEstimateModal({...movie, user_grade}));
+    e.stopPropagation();
   };
 
   const cardClassName = isFullCard ? classes.card__movie__full : classes.card__movie;
@@ -81,6 +81,7 @@ export const MovieCard = (props: MovieCardProps) => {
     }}>
       <Group className={classes.card__movie__rating__button}>
         <Rating 
+          onTouchEnd={(e) => {setMovieGrade(e)}} 
           onClick={(e) => {setMovieGrade(e)}} 
           color="violet" 
           size={"lg"} 

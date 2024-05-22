@@ -25,3 +25,6 @@ export interface MovieProps extends GenreIds {
   vote_count: number,
   production_companies?: Array<ProductionCompany>
 }
+export interface MovieGradedProps extends MovieProps {
+  user_grade: number
+}
